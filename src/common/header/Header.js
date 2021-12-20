@@ -30,6 +30,7 @@ const style = {
 
 const tabCustomize = {
   color: "#000",
+  fontWeight: 400,
 };
 
 function TabPanel(props) {
@@ -45,7 +46,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 2 }}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>

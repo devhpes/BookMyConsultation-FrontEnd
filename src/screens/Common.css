@@ -1,5 +1,6 @@
 .authentication-customize {
     text-align: center;
+    margin-bottom: -20px;
 }
 
 .button-color {
@@ -10,8 +11,3 @@
 .button-color:hover {
     background-color: #3f51b5;
 }
-
-.authentication-customize {
-    margin-bottom: -30px;    
-}
-
