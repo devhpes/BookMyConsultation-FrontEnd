@@ -12,7 +12,7 @@ const Login = () => {
       <form
         noValidate
         className="authentication-customize"
-        style={{ "text-align": "center" }}
+        autoComplete="off"
       >
         <FormControl variant="standard" required>
           <InputLabel htmlFor="username">Username</InputLabel>

@@ -44,7 +44,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -92,7 +92,11 @@ const Header = () => {
                 Doctor Finder
               </Typography>
 
-              <Button onClick={handleOpen} variant="contained" className="button-color">
+              <Button
+                onClick={handleOpen}
+                variant="contained"
+                className="button-color"
+              >
                 Login
               </Button>
 
@@ -127,19 +131,11 @@ const Header = () => {
                       />
                     </Tabs>
 
-                    <TabPanel
-                      value={value}
-                      index={0}
-                      style={{ textAlign: "center" }}
-                    >
+                    <TabPanel value={value} index={0}>
                       <Login />
                     </TabPanel>
 
-                    <TabPanel
-                      value={value}
-                      index={1}
-                      style={{ textAlign: "center" }}
-                    >
+                    <TabPanel value={value} index={1}>
                       <Register />
                     </TabPanel>
                   </CardContent>

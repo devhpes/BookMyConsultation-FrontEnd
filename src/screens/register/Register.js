@@ -9,7 +9,7 @@ import Button from "@mui/material/Button";
 const Register = () => {
   return (
     <div>
-      <form noValidate className="authentication-customize" style={{'text-align': 'center'}}>
+      <form noValidate className="authentication-customize"  autoComplete="off">
         <FormControl variant="standard" required>
           <InputLabel htmlFor="firstname">First Name</InputLabel>
           <Input id="username" type="text" />
