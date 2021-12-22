@@ -11,3 +11,18 @@
 .button-color:hover {
     background-color: #3f51b5;
 }
+
+.error-popup {
+    width: 80%;
+    background: #464646;
+    color: white;
+    padding: 12px;
+    position: absolute;
+    bottom: -40px;
+    border-radius: 5px;
+    font-size: 0.7em;
+}
+
+.invalid-email-error {
+    color: red;
+}
