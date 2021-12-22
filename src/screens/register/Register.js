@@ -20,10 +20,12 @@ const Register = () => {
   const [passwordError, setErrorForPassword] = React.useState(false);
   const [mobileNumberError, setErrorForMobileNumber] = React.useState(false);
 
+  const [inValidMobileNumber, setErrorForIninValidMobileNumber] =
+    React.useState(false);
+
   const [validEmail, setErrorForInvalidEmail] = React.useState(false);
 
-  const [loggedIn, setLoggedIn] = React.useState(false);
-  const [error, setError] = React.useState(null);
+  const [registration, setRegistrationSuccess] = React.useState(false);
 
   const firstNameChangeHandler = (e) => {
     setFirstName(e.target.value);
@@ -48,11 +50,10 @@ const Register = () => {
   const registrationHandler = (e) => {
     if (e) e.preventDefault();
 
-    const pattern =
-    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i;
+    let flag = true;
 
-    const encodeEmailAndPassword = window.btoa(`${email}:${password}`);
-    console.log(encodeEmailAndPassword);
+    const pattern =
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i;
 
     firstName === "" ? setErrorForFirstName(true) : setErrorForFirstName(false);
     lastName === "" ? setErrorForLastName(true) : setErrorForLastName(false);
@@ -62,37 +63,50 @@ const Register = () => {
       ? setErrorForMobileNumber(true)
       : setErrorForMobileNumber(false);
 
-    if (email.match(pattern)) {
-      setErrorForInvalidEmail(false);
+    if (mobileNumber.length !== 10) {
+      setErrorForIninValidMobileNumber(true);
+      flag = false;
     } else {
-      setErrorForInvalidEmail(true);
+      setErrorForIninValidMobileNumber(false);
     }
 
-    fetch("http://localhost:8085/api/v1/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json;Charset=UTF-8",
-        Authorization: `Basic ${encodeEmailAndPassword}`,
-      },
-    }).then((response) => {
-      if (response.ok) {
-        setLoggedIn(true);
-        sessionStorage.setItem(
-          "access-token",
-          response.headers.get("access-token")
-        );
-        // Setting timeout to hold login screen for 1sec after successful login
-        setTimeout(() => {
-          console.log("Working");
-        }, 1000);
-      } else {
-        const errorLog = (error) => {
-          console.log(errorLog);
-          setError(error);
-        };
-      }
-    });
+    if (!email.match(pattern)) {
+      setErrorForInvalidEmail(true);
+      flag = false;
+    } else {
+      setErrorForInvalidEmail(false);
+    }
+
+    if (flag) {
+      const requestOptions = {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          firstName: firstName,
+          lastName: lastName,
+          mobile: mobileNumber,
+          password: password,
+          emailId: email,
+        }),
+      };
+      console.log(requestOptions);
+
+      fetch("http://localhost:8081/users/register", requestOptions)
+        .then((response) => {
+          if (response.ok) {
+            setRegistrationSuccess(true);
+          };
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 1000);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -142,7 +156,7 @@ const Register = () => {
           />
           <div>
             {validEmail === true && (
-              <FormHelperText id="invalid-email-error">
+              <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
             )}
@@ -175,11 +189,24 @@ const Register = () => {
             onChange={mobileNumberChangeHandler}
             type="number"
           />
+          <div>
+          {inValidMobileNumber === true && (
+            <FormHelperText id="invalid-error">
+              Enter valid mobile number
+              </FormHelperText>
+          )}
+          </div>
           {mobileNumberError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
         <br />
+        <br />
+        {registration === true && (
+          <FormControl>
+            <span className="registration-succes">Registration Successful</span>
+          </FormControl>
+        )}
         <br />
         <Button type="submit" variant="contained" color="primary">
           REGISTER

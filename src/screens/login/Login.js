@@ -16,6 +16,8 @@ const Login = () => {
 
   const [validEmail, setErrorForInvalidEmail] = React.useState(false);
 
+  const [loggedIn, setLoggedIn] = React.useState(false);
+
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
   };
@@ -26,18 +28,48 @@ const Login = () => {
 
   const loginHandler = (e) => {
     if (e) e.preventDefault();
+
+    let flag = true;
+
     email === "" ? setErrorForEmail(true) : setErrorForEmail(false);
     password === "" ? setErrorForPassword(true) : setErrorForPassword(false);
 
+    const encodeEmailAndPassword = window.btoa(`${email}:${password}`);
+
     const pattern =
       /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i;
-      
-    if (email.match(pattern)) {
-      setErrorForInvalidEmail(false);
-      return false;
-    } else {
+
+    if (!email.match(pattern)) {
       setErrorForInvalidEmail(true);
-      return true;
+      flag = false;
+    } else {
+      setErrorForInvalidEmail(false);
+    }
+    if (flag) {
+      fetch("http://localhost:8081/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json;Charset=UTF-8",
+          Authorization: `Basic ${encodeEmailAndPassword}`,
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            setLoggedIn(true);
+            sessionStorage.setItem(
+              "access-token",
+              response.headers.get("access-token")
+            );
+            // Setting timeout to hold login screen for 1sec after successful login
+            setTimeout(() => {
+              window.location.reload(false);
+            }, 1000);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -84,6 +116,11 @@ const Login = () => {
         </FormControl>
         <br />
         <br />
+        <FormControl>
+          {loggedIn === true && (
+            <span className="login-success">Login Successful!</span>
+          )}
+        </FormControl>
         <br />
         <Button type="submit" variant="contained" color="primary">
           LOGIN
