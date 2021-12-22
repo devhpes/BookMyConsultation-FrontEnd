@@ -1,12 +1,11 @@
 import React from "react";
 import "./Register.css";
 import "../Common.css";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
-import FormHelperText from '@mui/material/FormHelperText';
-
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Button from "@material-ui/core/Button";
 
 const Register = () => {
   const [firstName, setFirstName] = React.useState("");
@@ -23,6 +22,8 @@ const Register = () => {
 
   const [validEmail, setErrorForInvalidEmail] = React.useState(false);
 
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [error, setError] = React.useState(null);
 
   const firstNameChangeHandler = (e) => {
     setFirstName(e.target.value);
@@ -47,6 +48,12 @@ const Register = () => {
   const registrationHandler = (e) => {
     if (e) e.preventDefault();
 
+    const pattern =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    const encodeEmailAndPassword = window.btoa(`${email}:${password}`);
+    console.log(encodeEmailAndPassword);
+
     firstName === "" ? setErrorForFirstName(true) : setErrorForFirstName(false);
     lastName === "" ? setErrorForLastName(true) : setErrorForLastName(false);
     email === "" ? setErrorForEmail(true) : setErrorForEmail(false);
@@ -55,20 +62,47 @@ const Register = () => {
       ? setErrorForMobileNumber(true)
       : setErrorForMobileNumber(false);
 
-      const pattern =
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     if (email.match(pattern)) {
       setErrorForInvalidEmail(false);
-      return false;
     } else {
       setErrorForInvalidEmail(true);
-      return true;
     }
+
+    fetch("http://localhost:8085/api/v1/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json;Charset=UTF-8",
+        Authorization: `Basic ${encodeEmailAndPassword}`,
+      },
+    }).then((response) => {
+      if (response.ok) {
+        setLoggedIn(true);
+        sessionStorage.setItem(
+          "access-token",
+          response.headers.get("access-token")
+        );
+        // Setting timeout to hold login screen for 1sec after successful login
+        setTimeout(() => {
+          console.log("Working");
+        }, 1000);
+      } else {
+        const errorLog = (error) => {
+          console.log(errorLog);
+          setError(error);
+        };
+      }
+    });
   };
 
   return (
     <div>
-      <form noValidate className="authentication-customize" autoComplete="off" onSubmit={registrationHandler}>
+      <form
+        noValidate
+        className="authentication-customize"
+        autoComplete="off"
+        onSubmit={registrationHandler}
+      >
         <FormControl variant="standard" required>
           <InputLabel htmlFor="firstname">First Name</InputLabel>
           <Input
@@ -107,10 +141,12 @@ const Register = () => {
             type="email"
           />
           <div>
-          {validEmail === true && (
-            <FormHelperText id="invalid-email-error">Enter valid Email</FormHelperText>
-          )}
-        </div>
+            {validEmail === true && (
+              <FormHelperText id="invalid-email-error">
+                Enter valid Email
+              </FormHelperText>
+            )}
+          </div>
           {emailError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
@@ -145,11 +181,7 @@ const Register = () => {
         </FormControl>
         <br />
         <br />
-        <Button
-          type="submit"
-          variant="contained"
-          className="button-color"
-        >
+        <Button type="submit" variant="contained" color="primary">
           REGISTER
         </Button>
       </form>

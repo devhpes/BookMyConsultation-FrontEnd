@@ -1,12 +1,11 @@
 import React from "react";
 import "./Login.css";
 import "../Common.css";
-import FormControl from "@mui/material/FormControl";
-import InputLabel from "@mui/material/InputLabel";
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
-import FormHelperText from '@mui/material/FormHelperText';
-
+import FormControl from "@material-ui/core/FormControl";
+import InputLabel from "@material-ui/core/InputLabel";
+import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import Button from "@material-ui/core/Button";
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -59,7 +58,9 @@ const Login = () => {
           />
           <div>
             {validEmail === true && (
-              <FormHelperText id="invalid-email-error">Enter valid Email</FormHelperText>
+              <FormHelperText id="invalid-email-error">
+                Enter valid Email
+              </FormHelperText>
             )}
           </div>
           {emailError === true && (
@@ -83,12 +84,7 @@ const Login = () => {
         <br />
         <br />
         <br />
-        <Button
-          type="submit"
-          variant="contained"
-          color="primary"
-          className="button-color"
-        >
+        <Button type="submit" variant="contained" color="primary">
           LOGIN
         </Button>
       </form>

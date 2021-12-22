@@ -1,18 +1,24 @@
-body {
-    margin: 0;
-    padding: 0;
-    text-decoration: none;
+.header {
+    background-color: purple;
+    height: 40px;
+    padding: 11px;
 }
 
-.header-logo {
+.header img {
     height: 35px;
     background-color: #ff7f7f;
+    float: left;
 }
 
-.header-design {
-    height: 70px;
-    padding: 11px;
-    background-color: #800080;
+.header #header-title {
+    font-size: x-large;
+    font-weight: normal;
+    color: white;
+}
+
+.header Button {
+    float: right;
+    margin-top: -30px;
 }
 
 .typography {
