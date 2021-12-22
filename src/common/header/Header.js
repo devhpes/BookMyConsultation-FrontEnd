@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../../assets/logo.jpeg";
 import "./Header.css";
-import "../Common.css"
+import "../Common.css";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -26,7 +26,7 @@ const style = {
   marginRight: "-50%",
   transform: "translate(-50%, -50%)",
   borderRadius: "3px",
-  border: '1px solid #CCCCCC',
+  border: "1px solid #CCCCCC",
 };
 
 const tabCustomize = {

@@ -25,35 +25,22 @@ const Login = () => {
 
   const loginHandler = (e) => {
     if (e) e.preventDefault();
-
-    if (email === "" || password === "") {
-      setErrorForEmail(true);
-      setErrorForPassword(true);
-      return true;
-    // }
-    // if (validateEmail(email)){
-    //     return;
-    }
-     else {
-      setErrorForEmail(false);
-      setErrorForPassword(false);
-      setEmail("");
-      setPassword("");
-      return false;
-    }
+    email === "" ? setErrorForEmail(true) : setErrorForEmail(false);
+    password === "" ? setErrorForPassword(true) : setErrorForPassword(false);
   };
 
-  const validateEmail = (email) =>{
-    const pattern =  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
+  const validateEmail = (email) => {
+    const pattern =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     const result = pattern.test(email);
-    if(result===true){
-      setErrorForInvalidEmail(false)
-        return false
-    } else{
-      setErrorForInvalidEmail(true)
-        return true
+    if (result === true) {
+      setErrorForInvalidEmail(false);
+      return false;
+    } else {
+      setErrorForInvalidEmail(true);
+      return true;
     }
-}
+  };
 
   return (
     <div>
@@ -68,7 +55,7 @@ const Login = () => {
           />
           {emailError === true && (
             <span className="error-popup">Please fill out this field</span>
-         )}
+          )}
         </FormControl>
         <br />
         <br />

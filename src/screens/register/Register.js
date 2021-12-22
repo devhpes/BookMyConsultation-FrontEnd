@@ -46,32 +46,13 @@ const Register = () => {
   const registrationHandler = (e) => {
     if (e) e.preventDefault();
 
-    if (
-      firstName === "" ||
-      lastName === "" ||
-      email === "" ||
-      password === "" ||
-      mobileNumber === ""
-    ) {
-      setErrorForFirstName(true);
-      setErrorForLastName(true);
-      setErrorForEmail(true);
-      setErrorForPassword(true);
-      setErrorForMobileNumber(true);
-      return;
-    } else {
-      setErrorForFirstName(false);
-      setErrorForLastName(false);
-      setErrorForEmail(false);
-      setErrorForPassword(false);
-      setErrorForMobileNumber(false);
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setMobileNumber("");
-      return;
-    }
+    firstName === "" ? setErrorForFirstName(true) : setErrorForFirstName(false);
+    lastName === "" ? setErrorForLastName(true) : setErrorForLastName(false);
+    email === "" ? setErrorForEmail(true) : setErrorForEmail(false);
+    password === "" ? setErrorForPassword(true) : setErrorForPassword(false);
+    mobileNumber === ""
+      ? setErrorForMobileNumber(true)
+      : setErrorForMobileNumber(false);
   };
 
   return (
