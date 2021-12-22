@@ -30,7 +30,8 @@ const Login = () => {
     password === "" ? setErrorForPassword(true) : setErrorForPassword(false);
 
     const pattern =
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+      /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i;
+      
     if (email.match(pattern)) {
       setErrorForInvalidEmail(false);
       return false;

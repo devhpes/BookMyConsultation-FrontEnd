@@ -49,7 +49,7 @@ const Register = () => {
     if (e) e.preventDefault();
 
     const pattern =
-      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    /^(([^<>()[\].,;:\s@"]+(\.[^<>()[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\\.,;:\s@"]{2,})$/i;
 
     const encodeEmailAndPassword = window.btoa(`${email}:${password}`);
     console.log(encodeEmailAndPassword);

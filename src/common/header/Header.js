@@ -99,7 +99,7 @@ const Header = () => {
         aria-describedby="authentication"
         style={style}
       >
-        <Card sx={{ minWidth: 300 }}>
+        <Card>
           <div className="typography">
             <p>Authentication</p>
           </div>
