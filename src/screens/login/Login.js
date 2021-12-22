@@ -5,6 +5,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 const Login = () => {
   const [email, setEmail] = React.useState("");
@@ -13,7 +15,7 @@ const Login = () => {
   const [emailError, setErrorForEmail] = React.useState(false);
   const [passwordError, setErrorForPassword] = React.useState(false);
 
-  const [invalidEmail, setErrorForInvalidEmail] = React.useState(false);
+  const [validEmail, setErrorForInvalidEmail] = React.useState(false);
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -27,13 +29,10 @@ const Login = () => {
     if (e) e.preventDefault();
     email === "" ? setErrorForEmail(true) : setErrorForEmail(false);
     password === "" ? setErrorForPassword(true) : setErrorForPassword(false);
-  };
 
-  const validateEmail = (email) => {
     const pattern =
       /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-    const result = pattern.test(email);
-    if (result === true) {
+    if (email.match(pattern)) {
       setErrorForInvalidEmail(false);
       return false;
     } else {
@@ -44,7 +43,12 @@ const Login = () => {
 
   return (
     <div>
-      <form noValidate className="authentication-customize" autoComplete="off">
+      <form
+        noValidate
+        className="authentication-customize"
+        autoComplete="off"
+        onSubmit={loginHandler}
+      >
         <FormControl variant="standard" required>
           <InputLabel htmlFor="username">Email</InputLabel>
           <Input
@@ -53,6 +57,11 @@ const Login = () => {
             value={email}
             onChange={emailChangeHandler}
           />
+          <div>
+            {validEmail === true && (
+              <FormHelperText id="invalid-email-error">Enter valid Email</FormHelperText>
+            )}
+          </div>
           {emailError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
@@ -76,7 +85,6 @@ const Login = () => {
         <br />
         <Button
           type="submit"
-          onClick={loginHandler}
           variant="contained"
           color="primary"
           className="button-color"

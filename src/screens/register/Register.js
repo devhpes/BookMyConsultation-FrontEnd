@@ -5,6 +5,8 @@ import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
+import FormHelperText from '@mui/material/FormHelperText';
+
 
 const Register = () => {
   const [firstName, setFirstName] = React.useState("");
@@ -19,9 +21,8 @@ const Register = () => {
   const [passwordError, setErrorForPassword] = React.useState(false);
   const [mobileNumberError, setErrorForMobileNumber] = React.useState(false);
 
-  const validEmailRegex = RegExp(
-    /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-  );
+  const [validEmail, setErrorForInvalidEmail] = React.useState(false);
+
 
   const firstNameChangeHandler = (e) => {
     setFirstName(e.target.value);
@@ -53,11 +54,21 @@ const Register = () => {
     mobileNumber === ""
       ? setErrorForMobileNumber(true)
       : setErrorForMobileNumber(false);
+
+      const pattern =
+      /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    if (email.match(pattern)) {
+      setErrorForInvalidEmail(false);
+      return false;
+    } else {
+      setErrorForInvalidEmail(true);
+      return true;
+    }
   };
 
   return (
     <div>
-      <form noValidate className="authentication-customize" autoComplete="off">
+      <form noValidate className="authentication-customize" autoComplete="off" onSubmit={registrationHandler}>
         <FormControl variant="standard" required>
           <InputLabel htmlFor="firstname">First Name</InputLabel>
           <Input
@@ -95,6 +106,11 @@ const Register = () => {
             onChange={emailChangeHandler}
             type="email"
           />
+          <div>
+          {validEmail === true && (
+            <FormHelperText id="invalid-email-error">Enter valid Email</FormHelperText>
+          )}
+        </div>
           {emailError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
@@ -131,7 +147,6 @@ const Register = () => {
         <br />
         <Button
           type="submit"
-          onClick={registrationHandler}
           variant="contained"
           className="button-color"
         >
