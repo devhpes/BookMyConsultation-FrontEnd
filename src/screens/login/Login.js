@@ -7,7 +7,7 @@ import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
 
-const Login = () => {
+const Login = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -57,10 +57,10 @@ const Login = () => {
         .then((response) => {
           if (response.ok) {
             setLoggedIn(true);
-            sessionStorage.setItem(
-              "access-token",
-              response.headers.get("access-token")
-            );
+            // sessionStorage.setItem(
+            //   "access-token",
+            //   response.headers.get("access-token")
+            // );
             // Setting timeout to hold login screen for 1sec after successful login
             setTimeout(() => {
               window.location.reload(false);
@@ -90,13 +90,13 @@ const Login = () => {
             onChange={emailChangeHandler}
           />
           <div>
-            {validEmail === true && (
-              <FormHelperText id="invalid-email-error">
+            {email.length === 0 && validEmail === true && (
+              <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
             )}
           </div>
-          {emailError === true && (
+          {email.length === 0 && emailError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
@@ -110,7 +110,7 @@ const Login = () => {
             value={password}
             onChange={passwordChangeHandler}
           />
-          {passwordError === true && (
+          {password.length === 0 && passwordError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>

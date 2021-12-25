@@ -98,7 +98,7 @@ const Register = () => {
         .then((response) => {
           if (response.ok) {
             setRegistrationSuccess(true);
-          };
+          }
           setTimeout(() => {
             window.location.reload(false);
           }, 1000);
@@ -125,7 +125,7 @@ const Register = () => {
             onChange={firstNameChangeHandler}
             type="text"
           />
-          {firstNameError === true && (
+          {firstName.length === 0 && firstNameError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
@@ -140,7 +140,7 @@ const Register = () => {
             onChange={lastNameChangeHandler}
             type="text"
           />
-          {lastNameError === true && (
+          {lastName.length === 0 && lastNameError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
@@ -155,13 +155,13 @@ const Register = () => {
             type="email"
           />
           <div>
-            {validEmail === true && (
+            {email.length === 0 && validEmail === true && (
               <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
             )}
           </div>
-          {emailError === true && (
+          {email.length === 0 && emailError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
@@ -175,7 +175,7 @@ const Register = () => {
             onChange={passwordChangeHandler}
             type="password"
           />
-          {passwordError === true && (
+          {password.length === 0 && passwordError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>
@@ -190,13 +190,13 @@ const Register = () => {
             type="number"
           />
           <div>
-          {inValidMobileNumber === true && (
-            <FormHelperText id="invalid-error">
-              Enter valid mobile number
+            {mobileNumber.length === 0 && inValidMobileNumber === true && (
+              <FormHelperText id="invalid-error">
+                Enter valid mobile number
               </FormHelperText>
-          )}
+            )}
           </div>
-          {mobileNumberError === true && (
+          {mobileNumber.length === 0 && mobileNumberError === true && (
             <span className="error-popup">Please fill out this field</span>
           )}
         </FormControl>

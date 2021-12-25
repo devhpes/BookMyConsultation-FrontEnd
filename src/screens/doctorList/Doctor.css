@@ -1,0 +1,50 @@
+.select-header {
+    margin-right: 70px;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.paper-customize {
+    width: 40%;
+    text-align: left;
+    padding-left: 15px;
+    margin-top: 20px;
+}
+
+.doctor-customize {
+    font-size: 1.5em;
+    color: black;
+    padding-top: 20px;
+}
+
+.speciality-customize {
+    font-size: 1.2em;
+    color: black;
+}
+
+.rating-customize {
+    font-size: 1.2em;
+    color: black;
+}
+
+.booknow-button-customize {
+    width: 220px;
+    font-weight: 300;
+}
+
+.viewdetails-button-customize {
+    width: 220px;
+    margin-left: 20px;
+    background-color: #008000;
+    color: white;
+    font-weight: 300;
+}
+
+.viewdetails-button-customize:hover {
+    background-color: #066806;
+}
+
+.button-div-customize {
+    padding: 10px 0px 15px 10px;
+
+}
