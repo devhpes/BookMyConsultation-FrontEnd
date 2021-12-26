@@ -12,6 +12,7 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
+import { makeStyles } from "@material-ui/core/styles";
 
 const style = {
   top: "50%",
@@ -22,8 +23,17 @@ const style = {
   marginRight: "-50%",
   transform: "translate(-50%, -50%)",
   borderRadius: "3px",
+  bgcolor: "background.paper",
   border: "1px solid #CCCCCC",
 };
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: "absolute",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+  },
+}));
 
 const tabCustomize = {
   color: "#000",
@@ -64,6 +74,7 @@ function a11yProps(index) {
 }
 
 const Header = () => {
+  const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
@@ -97,9 +108,8 @@ const Header = () => {
         onClose={handleClose}
         aria-labelledby="login-register"
         aria-describedby="authentication"
-        style={style}
       >
-        <Card>
+        <Card style={style} className={classes.paper}>
           <div className="typography">
             <p>Authentication</p>
           </div>
