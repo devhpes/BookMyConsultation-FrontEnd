@@ -2,6 +2,7 @@ import React from "react";
 import "./Doctor.css";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails"
+import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
   Paper,
@@ -10,7 +11,7 @@ import {
   Grid,
   Modal,
 } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+
 
 const style = {
   width: "50%",

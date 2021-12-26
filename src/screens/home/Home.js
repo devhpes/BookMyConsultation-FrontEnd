@@ -7,6 +7,21 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles({
+  tabs: {
+    "& .MuiTab-wrapper": {
+      fontWeight: 400,
+    },
+    "& .MuiTabs-indicator": {
+      backgroundColor: "#3F51B5",
+    },
+    "& .MuiTab-root.Mui-selected": {
+      color: "#3F51B5",
+    },
+  },
+});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -42,6 +57,7 @@ function a11yProps(index) {
 }
 
 const Home = () => {
+  const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -54,16 +70,22 @@ const Home = () => {
       <div>
         <Box sx={{ width: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <Tabs value={value} onChange={handleChange} variant="fullWidth" >
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="fullWidth"
+              TabIndicatorProps={{ style: { background: "#3F51B5" } }}
+              className={classes.tabs}
+            >
               <Tab label="DOCTORS" {...a11yProps(0)} />
               <Tab label="APPOINTMENT" {...a11yProps(1)} />
             </Tabs>
           </Box>
-          <TabPanel value={value} index={0}  style={{textAlign: 'center'}}>
-          <DoctorList/>
+          <TabPanel value={value} index={0} style={{ textAlign: "center" }}>
+            <DoctorList />
           </TabPanel>
-          <TabPanel value={value} index={1}  style={{textAlign: 'center'}}>
-          <Appointment/>
+          <TabPanel value={value} index={1} style={{ textAlign: "center" }}>
+            <Appointment />
           </TabPanel>
         </Box>
       </div>

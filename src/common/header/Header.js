@@ -34,11 +34,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const tabCustomize = {
-  color: "#000",
-  fontWeight: 400,
-};
-
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
 
@@ -120,8 +115,8 @@ const Header = () => {
               TabIndicatorProps={{ style: { background: "#F50057" } }}
               centered
             >
-              <Tab label="Login" {...a11yProps(0)} style={tabCustomize} />
-              <Tab label="Register" {...a11yProps(1)} style={tabCustomize} />
+              <Tab label="Login" {...a11yProps(0)} />
+              <Tab label="Register" {...a11yProps(1)} />
             </Tabs>
 
             <TabPanel value={value} index={0}>
