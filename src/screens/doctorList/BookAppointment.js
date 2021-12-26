@@ -99,10 +99,9 @@ const BookAppointment = () => {
                 setMedicalHistory(e.target.value);
               }}
               id="standard-multiline-static"
-              label="Multiline"
+              label="Medical History"
               multiline
               rows={4}
-              label="Medical History"
             />
           </div>
           <div>
@@ -111,10 +110,9 @@ const BookAppointment = () => {
                 setSymptoms(e.target.value);
               }}
               id="standard-multiline-static"
-              label="Multiline"
+              label="Symptoms"
               multiline
               rows={4}
-              label="Symptoms"
             />
           </div>
           <Button

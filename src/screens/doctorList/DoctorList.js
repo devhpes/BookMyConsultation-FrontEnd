@@ -1,6 +1,7 @@
 import React from "react";
 import "./Doctor.css";
 import BookAppointment from "./BookAppointment";
+import DoctorDetails from "./DoctorDetails"
 import {
   Button,
   Paper,

@@ -1,34 +1,43 @@
 import React from "react";
 import "../doctorList/Doctor.css";
 import Rating from "@material-ui/lab/Rating";
+import { Typography } from "@material-ui/core";
 
-export default function DoctorDetails() {
+const DoctorDetails = () => {
   return (
     <div>
-      <div id="modal-header">Doctor Details</div>
-      <div id="details-holder">
-        <div className="details-text">Dr:name</div>
-        <div className="details-text">
+      <Typography id="modal-header">Doctor Details</Typography>
+      <Typography id="details-holder">
+        <Typography className="details-text">Dr:name</Typography>
+        <Typography className="details-text">
           Total Experience: Doctor’s total experience
-        </div>
-        <div className="details-text">Speciality: Doctor’s speciality</div>
+        </Typography>
+        <Typography className="details-text">
+          Speciality: Doctor’s speciality
+        </Typography>
 
-        <div className="details-text">
+        <Typography className="details-text">
           Date of Birth: Doctor’s date of birth
-        </div>
+        </Typography>
 
-        <div className="details-text">
+        <Typography className="details-text">
           City: The city where the doctor lives
-        </div>
+        </Typography>
 
-        <div className="details-text">Email: Email address of the doctor</div>
+        <Typography className="details-text">
+          Email: Email address of the doctor
+        </Typography>
 
-        <div className="details-text">Mobile: Phone number of the doctor</div>
+        <Typography className="details-text">
+          Mobile: Phone number of the doctor
+        </Typography>
 
-        <div className="details-text">
+        <Typography className="details-text">
           Rating: <Rating name="read-only" value={3} readOnly />
-        </div>
-      </div>
+        </Typography>
+      </Typography>
     </div>
   );
-}
+};
+
+export default DoctorDetails;
