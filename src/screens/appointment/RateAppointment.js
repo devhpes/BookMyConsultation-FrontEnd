@@ -1,5 +1,5 @@
 import React from 'react';
-import "./appointment.css"
+import "./Appointment.css"
 
 const RateAppointment = () => {
     return (

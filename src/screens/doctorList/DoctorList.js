@@ -52,73 +52,72 @@ const DoctorList = () => {
   };
   return (
     <div>
-      <div>
-        <p className="select-header">Select Speciality:</p>
-      </div>
-      <Select
-        id="select-speciality"
-        value={selectedSpeciality}
-        label="Speciality"
-        style={{ width: "15%" }}
-        onChange={handleSpecialityChange}
-      >
-        <option aria-label="None" value="" />
-        <option value={10}>Ten</option>
-        <option value={20}>Twenty</option>
-        <option value={30}>Thirty</option>
-      </Select>
-      <div>
-        <Grid item xs={12} sm container alignItems="center" direction="column">
-          <Paper
-            className="paper-customize"
-            square
-            style={{ justifyContent: "center" }}
-          >
-            <Typography className="doctor-customize">
-              Doctor Name : Abhishek Singh
-            </Typography>
-            <br />
-            <Typography className="speciality-customize">
-              Speciality : Obstetrician-Gynecologists
-            </Typography>
-            <Typography className="rating-customize">
-              Rating : * * * * *
-            </Typography>
-            <div className="button-div-customize">
-              <Button
-                className="booknow-button-customize"
-                variant="contained"
-                color="primary"
-                onClick={() => {
-                  setOpen(1);
-                }}
-              >
-                BOOK NOW
-              </Button>
-              <Button
-                className="viewdetails-button-customize"
-                type="submit"
-                variant="contained"
-                onClick={() => {
-                  setOpen(2);
-                }}
-              >
-                VIEW DETAILS
-              </Button>
-              <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="book-appointment"
-                aria-describedby="booking"
-              >
-                <div style={style} className={classes.paper}>
-                  {open === 1 ? <BookAppointment /> : <DoctorDetails />}
-                </div>
-              </Modal>
-            </div>
-          </Paper>
-        </Grid>
-      </div>
+      <Grid item xs={12} sm container alignItems="center" direction="column">
+        <div>
+          <p className="select-header">Select Speciality:</p>
+        </div>
+        <Select
+          id="select-speciality"
+          value={selectedSpeciality}
+          label="Speciality"
+          style={{ width: "15%" }}
+          onChange={handleSpecialityChange}
+        >
+          <option aria-label="None" value="" />
+          <option value={10}>Ten</option>
+          <option value={20}>Twenty</option>
+          <option value={30}>Thirty</option>
+        </Select>
+
+        <Paper
+          className="paper-customize"
+          square
+          style={{ justifyContent: "center" }}
+        >
+          <Typography className="doctor-customize">
+            Doctor Name : Abhishek Singh
+          </Typography>
+          <br />
+          <Typography className="speciality-customize">
+            Speciality : Obstetrician-Gynecologists
+          </Typography>
+          <Typography className="rating-customize">
+            Rating : * * * * *
+          </Typography>
+          <div className="button-div-customize">
+            <Button
+              className="booknow-button-customize"
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                setOpen(1);
+              }}
+            >
+              BOOK NOW
+            </Button>
+            <Button
+              className="viewdetails-button-customize"
+              type="submit"
+              variant="contained"
+              onClick={() => {
+                setOpen(2);
+              }}
+            >
+              VIEW DETAILS
+            </Button>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="book-appointment"
+              aria-describedby="booking"
+            >
+              <div style={style} className={classes.paper}>
+                {open === 1 ? <BookAppointment /> : <DoctorDetails />}
+              </div>
+            </Modal>
+          </div>
+        </Paper>
+      </Grid>
     </div>
   );
 };

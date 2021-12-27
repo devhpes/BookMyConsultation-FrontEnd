@@ -1,5 +1,5 @@
 import React from "react";
-import "../doctorList/Doctor.css";
+import "./Doctor.css";
 import TextField from "@material-ui/core/TextField";
 import DateFnsUtils from "@date-io/date-fns";
 import {
