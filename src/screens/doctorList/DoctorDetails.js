@@ -5,7 +5,7 @@ import { Typography } from "@material-ui/core";
 
 const DoctorDetails = () => {
   return (
-    <div>
+    <div className="doctor-details-customize">
       <Typography id="modal-header-doctor">Doctor Details</Typography>
       <Typography id="details-holder"> </Typography>
       <Typography id="doctor-name">Dr: Alexis Singh</Typography>

@@ -42,7 +42,7 @@ const Appointment = () => {
 
   return (
     <div>
-      <Paper>
+      <Paper className="paper-customize-appointment">
         <Typography id="doctor-name">Dr: name</Typography>
 
         <Typography id="details-text">Date: 2021-08-02</Typography>

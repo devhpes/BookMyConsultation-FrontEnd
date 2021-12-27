@@ -1,4 +1,7 @@
-.MuiTypography-body1 {
+.paper-customize-appointment {
+    cursor: pointer;
+    padding: 20px;
+    margin: 15px;
     text-align: left;
 }
 
@@ -7,18 +10,16 @@
     color: #212121;
     font-weight: 500;
     font-size: 1.3em;
-    margin-left: 15px;
 }
 
 .details-text {
     padding: 2px;
     color: #212121;
     font-weight: 500;
-    margin-left: 15px;
 }
 
 #from-btn {
-    margin: 20px 0 15px 10px;
+    margin: 20px 0 0 10px;
     font-weight: 400;
 }
 
