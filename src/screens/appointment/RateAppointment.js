@@ -11,10 +11,6 @@ const RateAppointment = () => {
   const [rating, setRating] = React.useState(0);
   const [ratingError, setRatingError] = React.useState(false);
 
-  const commentHandler = (e) => {
-    setComment(e.event.target);
-  }
-
   const handleRating = () => {
     if (rating === 0) {
       setRatingError(true);
@@ -31,7 +27,7 @@ const RateAppointment = () => {
       <div id="rating-body">
         <div className="rate-input">
           <TextField
-            onChange={commentHandler}
+            onChange={(e) => setComment(e.target.value)}
             id="standard-multiline-static"
             multiline
             rows={4}
@@ -39,17 +35,21 @@ const RateAppointment = () => {
           />
         </div>
         <div className="rating-input-star">
-          <FormControl >
+          <FormControl>
             Rating:
             <Rating
-              onChange={(event, newValue) => {
+              onChange={(e, newValue) => {
                 setRating(newValue);
               }}
               name="read-only"
             />
-            {rating === 0 && ratingError && (
-              <FormHelperText id="invalid-error">Submit a rating</FormHelperText>
-            )}
+            <div className="rating-error">
+              {rating === 0 && ratingError && (
+                <FormHelperText id="invalid-error">
+                  Select a rating
+                </FormHelperText>
+              )}
+            </div>
           </FormControl>
         </div>
         <Button

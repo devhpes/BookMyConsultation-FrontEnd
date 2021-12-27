@@ -1,6 +1,7 @@
 import React from "react";
 import "../doctorList/Doctor.css";
 import Rating from "@material-ui/lab/Rating";
+// import { withStyles } from "@material-ui/core/styles";
 import { Typography, CardContent } from "@material-ui/core";
 
 const DoctorDetails = () => {
@@ -29,7 +30,7 @@ const DoctorDetails = () => {
 
       <Typography id="details-text">City: Renukoot</Typography>
 
-      <Typography id="details-text">Email: super.man@superman.com</Typography>
+      <Typography id="details-text">Email: super.man@man.com</Typography>
 
       <Typography id="details-text">Mobile: 1800 1800 123</Typography>
 

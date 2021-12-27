@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 
 const style = {
-  width: "50%",
+  width: "40%",
   height: "auto",
   top: "50%",
   left: "50%",
@@ -110,7 +110,8 @@ const DoctorList = () => {
               open={open}
               onClose={handleClose}
               aria-labelledby="book-appointment"
-              aria-describedby="booking"    
+              aria-describedby="booking"
+              BackdropProps={{style: {backgroundColor: 'rgba(225,225,225,0.8)'}}}
             >
               <div style={style} className={classes.paper}>
                 {open === 1 ? <BookAppointment /> : <DoctorDetails />}
