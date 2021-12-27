@@ -1,12 +1,11 @@
 import React from "react";
 import "../doctorList/Doctor.css";
 import Rating from "@material-ui/lab/Rating";
-// import { withStyles } from "@material-ui/core/styles";
-import { Typography, CardContent } from "@material-ui/core";
+import { Typography, CardContent, Paper } from "@material-ui/core";
 
 const DoctorDetails = () => {
   return (
-    <div>
+    <Paper>
       <div
         style={{
           background: "purple",
@@ -18,8 +17,7 @@ const DoctorDetails = () => {
         }}
       >
         <Typography id="modal-header-doctor">Doctor Details</Typography>
-      </div>
-
+        </div>
       <CardContent>
       <Typography id="details-holder"> </Typography>
       <Typography id="doctor-name">Dr: Alexis Singh</Typography>
@@ -38,7 +36,7 @@ const DoctorDetails = () => {
         Rating: <Rating name="read-only" value={3} readOnly />
       </Typography>
       </CardContent>
-    </div>
+    </Paper>
   );
 };
 

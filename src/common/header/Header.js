@@ -9,30 +9,34 @@ import Tab from "@material-ui/core/Tab";
 import CardContent from "@material-ui/core/CardContent";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
 import Box from "@material-ui/core/Box";
-import Modal from "@material-ui/core/Modal";
-import { makeStyles } from "@material-ui/core/styles";
+import Modal from 'react-modal';
+import { withStyles } from "@material-ui/core/styles";
+import { Paper } from "@material-ui/core";
 
-const style = {
-  top: "50%",
-  left: "50%",
-  right: "auto",
-  bottom: "auto",
-  height: "auto",
-  marginRight: "-50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: "3px",
-  border: "1px solid #CCCCCC",
+Modal.setAppElement(document.getElementById("root"));
+
+const customStyle = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "auto",
+    padding:'0px',
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+    border: "0.1px solid #D3D3D3"
+  },
 };
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
+const styles = (theme) => ({
+  Paper: {
+    borderRadius: 5,
+    padding: 5,
+    border: "0.1px solid #D3D3D3",
   },
-}));
+});
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -67,8 +71,8 @@ function a11yProps(index) {
   };
 }
 
-const Header = () => {
-  const classes = useStyles();
+const Header = (props) => {
+  const classes = props;
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
@@ -98,13 +102,13 @@ const Header = () => {
       </header>
 
       <Modal
-        open={open}
-        onClose={handleClose}
+        isOpen={open}
+        onRequestClose={handleClose}
         aria-labelledby="login-register"
         aria-describedby="authentication"
-        BackdropProps={{style: {backgroundColor: 'rgba(225,225,225,0.4)'}}}
+        style={customStyle}
       >
-        <Card style={style} className={classes.paper}>
+        <Paper className={classes.paper}>
           <div className="typography">
             <p>Authentication</p>
           </div>
@@ -128,10 +132,10 @@ const Header = () => {
               <Register />
             </TabPanel>
           </CardContent>
-        </Card>
+        </Paper>
       </Modal>
     </div>
   );
 };
 
-export default Header;
+export default  withStyles(styles)(Header);

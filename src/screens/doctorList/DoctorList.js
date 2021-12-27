@@ -1,41 +1,35 @@
 import React from "react";
 import "./Doctor.css";
+import Modal from "react-modal";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
-import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from "@material-ui/core/styles";
+import { Button, Paper, Select, Typography, Grid } from "@material-ui/core";
 
-import {
-  Button,
-  Paper,
-  Select,
-  Typography,
-  Grid,
-  Modal,
-} from "@material-ui/core";
-
-const style = {
-  width: "40%",
-  height: "auto",
-  top: "50%",
-  left: "50%",
-  right: "auto",
-  bottom: "auto",
-  marginRight: "-50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: "3px",
-  border: "1px solid #CCCCCC",
+const customStyle = {
+  content: {
+    width: "40%",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "auto",
+    marginRight: "-50%",
+    padding: "0px",
+    transform: "translate(-50%, -50%)",
+    border: "0.1px solid #D3D3D3"
+  },
 };
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
+const styles = (theme) => ({
+  Paper: {
+    borderRadius: 5,
+    padding: 5,
   },
-}));
+});
 
-const DoctorList = () => {
-  const classes = useStyles();
+const DoctorList = (props) => {
+  const classes = props;
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
   const [open, setOpen] = React.useState(false);
@@ -107,15 +101,14 @@ const DoctorList = () => {
               VIEW DETAILS
             </Button>
             <Modal
-              open={open}
-              onClose={handleClose}
+              isOpen={open}
+              onRequestClose={handleClose}
               aria-labelledby="book-appointment"
               aria-describedby="booking"
-              BackdropProps={{style: {backgroundColor: 'rgb(225,225,225,0.5)' }}}
+              style={customStyle}
+              className={classes.paper}
             >
-              <div style={style} className={classes.paper}>
-                {open === 1 ? <BookAppointment /> : <DoctorDetails />}
-              </div>
+              <div>{open === 1 ? <BookAppointment /> : <DoctorDetails />}</div>
             </Modal>
           </div>
         </Paper>
@@ -124,4 +117,4 @@ const DoctorList = () => {
   );
 };
 
-export default DoctorList;
+export default withStyles(styles)(DoctorList);
