@@ -6,6 +6,8 @@ import DoctorDetails from "./DoctorDetails";
 import { withStyles } from "@material-ui/core/styles";
 import { Button, Paper, Select, Typography, Grid } from "@material-ui/core";
 
+Modal.setAppElement(document.getElementById("root"));
+
 const customStyle = {
   content: {
     width: "40%",

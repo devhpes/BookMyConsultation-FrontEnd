@@ -1,35 +1,38 @@
 import React from "react";
 import "./Appointment.css";
 import Button from "@material-ui/core/Button";
-import { makeStyles } from "@material-ui/core/styles";
 import RateAppointment from "./RateAppointment";
-import Modal from "@material-ui/core/Modal";
+import Modal from "react-modal";
 import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
 
-const style = {
-  width: "50%",
-  height: "auto",
-  top: "50%",
-  left: "50%",
-  right: "auto",
-  bottom: "auto",
-  marginRight: "-50%",
-  transform: "translate(-50%, -50%)",
-  borderRadius: "3px",
-  border: "1px solid #CCCCCC",
+Modal.setAppElement(document.getElementById("root"));
+
+const customStyle = {
+  content: {
+    width: "50%",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    height: "auto",
+    marginRight: "-50%",
+    padding: "0px",
+    transform: "translate(-50%, -50%)",
+    border: "0.1px solid #D3D3D3"
+  },
 };
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: "absolute",
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
+const styles = (theme) => ({
+  Paper: {
+    borderRadius: 5,
+    padding: 5,
   },
-}));
+});
 
-const Appointment = () => {
-  const classes = useStyles();
+const Appointment = (props) => {
+  const classes = props;
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -60,12 +63,14 @@ const Appointment = () => {
           RATE APPOINTMENT
         </Button>
         <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          isOpen={open}
+          onRequestClose={handleClose}
+          aria-labelledby="appointment-modal"
+          aria-describedby="appointment-booking"
+          style={customStyle} 
+          
         >
-          <div style={style} className={classes.paper}>
+          <div className={classes.paper}>
             <RateAppointment />
           </div>
         </Modal>
@@ -73,4 +78,4 @@ const Appointment = () => {
     </div>
   );
 };
-export default Appointment;
+export default  withStyles(styles)(Appointment);
