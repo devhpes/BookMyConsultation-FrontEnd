@@ -11,6 +11,10 @@ const RateAppointment = () => {
   const [rating, setRating] = React.useState(0);
   const [ratingError, setRatingError] = React.useState(false);
 
+  const commentHandler = (e) => {
+    setComment(e.event.target);
+  }
+
   const handleRating = () => {
     if (rating === 0) {
       setRatingError(true);
@@ -21,24 +25,21 @@ const RateAppointment = () => {
 
   return (
     <div>
-      <div id="rating-model-header">
+      <div id="rating-modal-header">
         <span id="rating-header">Rate an Appointment</span>
       </div>
       <div id="rating-body">
         <div className="rate-input">
           <TextField
-            onChange={(e) => {
-              setComment(e.target.value);
-            }}
+            onChange={commentHandler}
             id="standard-multiline-static"
             multiline
             rows={4}
             label="Comment"
           />
-          {/* <div className={(unfilled && symptoms == "") ? "helper-text" : "helper-ignore"}>Please fill out this field</div> */}
         </div>
-        <div className="rate-input">
-          <FormControl error={rating === 0 && ratingError} {...console.log()}>
+        <div className="rating-input-star">
+          <FormControl >
             Rating:
             <Rating
               onChange={(event, newValue) => {
@@ -47,13 +48,13 @@ const RateAppointment = () => {
               name="read-only"
             />
             {rating === 0 && ratingError && (
-              <FormHelperText>Submit a rating</FormHelperText>
+              <FormHelperText id="invalid-error">Submit a rating</FormHelperText>
             )}
           </FormControl>
         </div>
         <Button
           onClick={handleRating}
-          id="from-btn"
+          id="rate-button-customize"
           variant="contained"
           color="primary"
         >

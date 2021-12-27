@@ -78,20 +78,11 @@
 }
 
 #modal-header-appointment {
-    background-color: purple;
-    color: white;
-    padding: 25px 0 25px 10px;
     font-size: 1.3em;
-    font-weight: 300;
 }
 
 #modal-header-doctor {
-    background-color: purple;
-    color: white;
-    padding: 35px 0px 0 10px;
-    height: 70px;
     font-size: 1.3em;
-    font-weight: 300;
 }
 
 #doctor-name {
@@ -107,4 +98,13 @@
     color: #212121;
     font-weight: 500;
     margin-left: 10px;
+}
+
+.element.style{
+    width: 30%;
+}
+
+#invalid-error {
+    color: red;
+    font-size: 0.8em;
 }

@@ -3,6 +3,7 @@ import "./Doctor.css";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
 import { makeStyles } from "@material-ui/core/styles";
+
 import {
   Button,
   Paper,
@@ -109,7 +110,7 @@ const DoctorList = () => {
               open={open}
               onClose={handleClose}
               aria-labelledby="book-appointment"
-              aria-describedby="booking"
+              aria-describedby="booking"    
             >
               <div style={style} className={classes.paper}>
                 {open === 1 ? <BookAppointment /> : <DoctorDetails />}

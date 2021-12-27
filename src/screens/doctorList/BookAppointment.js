@@ -12,102 +12,105 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-
+import { Typography } from "@material-ui/core";
 
 const BookAppointment = () => {
-
   const [selectedDate, handleDateChange] = React.useState(new Date());
   const [doctorName, setDoctorName] = React.useState("");
-  const [unfilled, setUnfilled] = React.useState(false);
   const [medicalHistory, setMedicalHistory] = React.useState("");
   const [symptoms, setSymptoms] = React.useState("");
   const [slot, setSlot] = React.useState("None");
   const [slotError, setSlotError] = React.useState(false);
 
-  const handleBooking = async () => {
-    if (doctorName === "") {
-      setUnfilled(true);
-      return;
-    }
-    if (slot === "None") {
-      setSlotError(true);
-      return;
-    } else {
-      setSlotError(false);
-    }
+  const handleChange = (value) => {
+    setSlot(value);
+    console.log(value);
+  };
+  const handleBooking = (e) => {
+    if (e) e.preventDefault();
+    slot === "None" ? setSlotError(true) : setSlotError(false);
   };
 
   return (
-      <div className="booking-holder">
-        <div id="modal-header-appointment">Book an Appointment</div>
-        <div id="book-appointment-container">
-          <form noValidate autoComplete="off">
-            <div id="doctor-name-text">
-              <TextField
+    <div className="booking-holder">
+      <div
+        style={{
+          background: "purple",
+          color: "white",
+          padding: "11px",
+          height: "70px",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography id="modal-header-appointment">
+          Book an Appointment
+        </Typography>
+      </div>
+      <div id="book-appointment-container">
+        <form noValidate autoComplete="off">
+          <div id="doctor-name-text">
+            <TextField
+              value={doctorName}
+              onChange={(e) => {
+                setDoctorName(e.target.value);
+              }}
+              id="standard-basic"
+              label="Doctor Name *"
+            />
+            <div></div>
+          </div>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              disableToolbar
+              variant="inline"
+              format="MM/dd/yyyy"
+              margin="normal"
+              id="date-picker-inline"
+              label="Date picker inline"
+              value={selectedDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
+          </MuiPickersUtilsProvider>
+          <div>
+            <FormControl>
+              <InputLabel id="demo-simple-select-label">Timeslot </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={slot}
                 onChange={(e) => {
-                  setDoctorName(e.target.value);
+                  handleChange(e.target.value);
                 }}
-                id="standard-basic"
-                label="Doctor Name *"
-              />
-              <div
-                className={
-                  unfilled && doctorName === ""
-                    ? "helper-text"
-                    : "helper-ignore"
-                }
               >
-                Please fill out this field
-              </div>
-            </div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                format="MM/dd/yyyy"
-                margin="normal"
-                id="date-picker-inline"
-                label="Date picker inline"
-                value={selectedDate}
-                onChange={handleDateChange}
-                KeyboardButtonProps={{
-                  "aria-label": "change date",
-                }}
-              />
-            </MuiPickersUtilsProvider>
-            <div>
-              <FormControl error={slot === "None" && slotError}>
-                <InputLabel id="demo-simple-select-label">Timeslot </InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={slot}
-                  onChange={(e) => {
-                    setSlot(e.target.value);
-                  }}
-                >
-                  <MenuItem value={"None"}>None</MenuItem>
-                  <MenuItem value={10}>10:00-11:00AM</MenuItem>
-                  <MenuItem value={20}>11:00-12:00AM</MenuItem>
-                  <MenuItem value={30}>12:00-1:00PM</MenuItem>
-                </Select>
-                {slot === "None" && slotError && (
-                  <FormHelperText>Error</FormHelperText>
+                <MenuItem value={"None"}>None</MenuItem>
+                <MenuItem value={10}>10:00-11:00AM</MenuItem>
+                <MenuItem value={20}>11:00-12:00AM</MenuItem>
+                <MenuItem value={30}>12:00-1:00PM</MenuItem>
+              </Select>
+              <div>
+                {slot === "None" && slotError === true && (
+                  <FormHelperText id="invalid-error">
+                    Select a time slot
+                  </FormHelperText>
                 )}
-              </FormControl>
-            </div>
-
-            <div>
-              <TextField
-                onChange={(e) => {
-                  setMedicalHistory(e.target.value);
-                }}
-                id="standard-multiline-static"
-                label="Medical History"
-                multiline
-                rows={4}
-              />
-            </div>
+              </div>
+            </FormControl>
+          </div>
+          <FormControl>
+            <TextField
+              onChange={(e) => {
+                setMedicalHistory(e.target.value);
+              }}
+              id="standard-multiline-static"
+              label="Medical History"
+              multiline
+              value={medicalHistory}
+              rows={4}
+            />
             <div>
               <TextField
                 onChange={(e) => {
@@ -115,21 +118,24 @@ const BookAppointment = () => {
                 }}
                 id="standard-multiline-static"
                 label="Symptoms"
+                value={symptoms}
                 multiline
                 rows={4}
               />
             </div>
+
             <Button
-              onClick={handleBooking}
               id="bookappointment-button-customize"
               variant="contained"
               color="primary"
+              onClick={handleBooking}
             >
               BOOK APPOINTMENT
             </Button>
-          </form>
-        </div>
+          </FormControl>
+        </form>
       </div>
+    </div>
   );
 };
 

@@ -27,17 +27,22 @@
     background-color: purple;
     color: white;
     height: 70px;
-    padding: 11px;
+    font-size: 1.3em;
+    font-weight: 400;
+    padding-top: 30px;
+    padding-left: 10px;
 }
 
 #rating-body {
     padding: 10px;
 }
 
-.rate-input {
-    margin: 10px;
+.rating-input-star {
+    margin-top: 20px;
 }
 
-#rating-header {
-    margin: auto 0;
+#rate-button-customize{
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-weight: 300;
 }
