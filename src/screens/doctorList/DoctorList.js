@@ -1,7 +1,7 @@
 import React from "react";
 import "./Doctor.css";
 import BookAppointment from "./BookAppointment";
-import DoctorDetails from "./DoctorDetails"
+import DoctorDetails from "./DoctorDetails";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Button,
@@ -11,7 +11,6 @@ import {
   Grid,
   Modal,
 } from "@material-ui/core";
-
 
 const style = {
   width: "50%",
@@ -45,7 +44,7 @@ const DoctorList = () => {
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen(0);
   };
 
   const handleSpecialityChange = (event) => {
@@ -90,7 +89,9 @@ const DoctorList = () => {
                 className="booknow-button-customize"
                 variant="contained"
                 color="primary"
-                onClick={handleOpen}
+                onClick={() => {
+                  setOpen(1);
+                }}
               >
                 BOOK NOW
               </Button>
@@ -98,6 +99,9 @@ const DoctorList = () => {
                 className="viewdetails-button-customize"
                 type="submit"
                 variant="contained"
+                onClick={() => {
+                  setOpen(2);
+                }}
               >
                 VIEW DETAILS
               </Button>
@@ -108,7 +112,7 @@ const DoctorList = () => {
                 aria-describedby="booking"
               >
                 <div style={style} className={classes.paper}>
-                  {<BookAppointment />}
+                  {open === 1 ? <BookAppointment /> : <DoctorDetails />}
                 </div>
               </Modal>
             </div>

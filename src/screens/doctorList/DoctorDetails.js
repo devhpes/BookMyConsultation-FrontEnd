@@ -6,35 +6,22 @@ import { Typography } from "@material-ui/core";
 const DoctorDetails = () => {
   return (
     <div>
-      <Typography id="modal-header">Doctor Details</Typography>
-      <Typography id="details-holder">
-        <Typography className="details-text">Dr:name</Typography>
-        <Typography className="details-text">
-          Total Experience: Doctor’s total experience
-        </Typography>
-        <Typography className="details-text">
-          Speciality: Doctor’s speciality
-        </Typography>
+      <Typography id="modal-header-doctor">Doctor Details</Typography>
+      <Typography id="details-holder"> </Typography>
+      <Typography id="doctor-name">Dr: Alexis Singh</Typography>
+      <Typography id="details-text">Total Experience: 21 years</Typography>
+      <Typography id="details-text">Speciality: CARDIOLOGIST</Typography>
 
-        <Typography className="details-text">
-          Date of Birth: Doctor’s date of birth
-        </Typography>
+      <Typography id="details-text">Date of Birth: 1996-12-12</Typography>
 
-        <Typography className="details-text">
-          City: The city where the doctor lives
-        </Typography>
+      <Typography id="details-text">City: Renukoot</Typography>
 
-        <Typography className="details-text">
-          Email: Email address of the doctor
-        </Typography>
+      <Typography id="details-text">Email: super.man@superman.com</Typography>
 
-        <Typography className="details-text">
-          Mobile: Phone number of the doctor
-        </Typography>
+      <Typography id="details-text">Mobile: 1800 1800 123</Typography>
 
-        <Typography className="details-text">
-          Rating: <Rating name="read-only" value={3} readOnly />
-        </Typography>
+      <Typography id="details-text">
+        Rating: <Rating name="read-only" value={3} readOnly />
       </Typography>
     </div>
   );

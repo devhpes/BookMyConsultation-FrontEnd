@@ -1,0 +1,42 @@
+.MuiTypography-body1 {
+    text-align: left;
+}
+
+.doctor-name {
+    padding: 2px;
+    color: #212121;
+    font-weight: 500;
+    font-size: 1.3em;
+    margin-left: 15px;
+}
+
+.details-text {
+    padding: 2px;
+    color: #212121;
+    font-weight: 500;
+    margin-left: 15px;
+}
+
+#from-btn {
+    margin: 20px 0 15px 10px;
+    font-weight: 400;
+}
+
+#rating-modal-header {
+    background-color: purple;
+    color: white;
+    height: 70px;
+    padding: 11px;
+}
+
+#rating-body {
+    padding: 10px;
+}
+
+.rate-input {
+    margin: 10px;
+}
+
+#rating-header {
+    margin: auto 0;
+}

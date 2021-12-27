@@ -6,8 +6,8 @@
 }
 
 #select-speciality {
-    text-align: left;
-    padding: 20px 0 8px 10px;
+    text-align: center;
+    padding: 20px 0 10px 10px;
     background-color: #DCDCDC;
 }
 
@@ -62,12 +62,6 @@
     text-align: left;
 }
 
-#modal-header {
-    background-color: purple;
-    color: white;
-    padding: 20px;
-}
-
 #book-appointment-container {
     padding: 10px;
 }
@@ -76,19 +70,40 @@
     width: 70px;
 }
 
-#doctor-name-text {
-    position: relative;
+#bookappointment-button-customize {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 400;
 }
 
-#details-holder {
-    padding: 10px;
-}
-
-.details-text {
-    padding: 5px;
-}
-
-#from-btn {
-    margin: 20px 0 5px 0;
+#modal-header-appointment {
+    background-color: purple;
+    color: white;
+    padding: 25px 0 25px 10px;
+    font-size: 1.3em;
     font-weight: 300;
+}
+
+#modal-header-doctor {
+    background-color: purple;
+    color: white;
+    padding: 35px 0px 0 10px;
+    height: 70px;
+    font-size: 1.3em;
+    font-weight: 300;
+}
+
+#doctor-name {
+    padding: 2px;
+    color: #212121;
+    font-weight: 500;
+    font-size: 1.3em;
+    margin-left: 10px;
+}
+
+#details-text {
+    padding: 2px;
+    color: #212121;
+    font-weight: 500;
+    margin-left: 10px;
 }
