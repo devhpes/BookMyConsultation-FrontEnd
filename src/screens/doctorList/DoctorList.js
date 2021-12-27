@@ -111,7 +111,7 @@ const DoctorList = () => {
               onClose={handleClose}
               aria-labelledby="book-appointment"
               aria-describedby="booking"
-              BackdropProps={{style: {backgroundColor: 'rgba(225,225,225,0.8)'}}}
+              BackdropProps={{style: {backgroundColor: 'rgb(225,225,225,0.5)' }}}
             >
               <div style={style} className={classes.paper}>
                 {open === 1 ? <BookAppointment /> : <DoctorDetails />}

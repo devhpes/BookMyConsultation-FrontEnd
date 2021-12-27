@@ -102,7 +102,7 @@ const Header = () => {
         onClose={handleClose}
         aria-labelledby="login-register"
         aria-describedby="authentication"
-        BackdropProps={{style: {backgroundColor: 'rgba(225,225,225,0.8)'}}}
+        BackdropProps={{style: {backgroundColor: 'rgba(225,225,225,0.4)'}}}
       >
         <Card style={style} className={classes.paper}>
           <div className="typography">
