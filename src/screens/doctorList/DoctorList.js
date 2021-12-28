@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
 import { withStyles } from "@material-ui/core/styles";
-import { Button, Paper, Select, Typography, Grid } from "@material-ui/core";
+import { Button, Paper, Select, Typography, Grid, Divider } from "@material-ui/core";
 
 Modal.setAppElement(document.getElementById("root"));
 
@@ -19,7 +19,7 @@ const customStyle = {
     marginRight: "-50%",
     padding: "0px",
     transform: "translate(-50%, -50%)",
-    border: "0.1px solid #D3D3D3"
+    border: "0.1px solid #D3D3D3",
   },
 };
 
@@ -49,15 +49,13 @@ const DoctorList = (props) => {
   };
   return (
     <div>
-      <Grid item xs={12} sm container alignItems="center" direction="column">
-        <div>
-          <p className="select-header">Select Speciality:</p>
-        </div>
+      <Grid item xs={12} sm container alignItems="center" direction="column"  component="span">
+      <Typography  component="span" id="select-header">Select Speciality:</Typography>
         <Select
           id="select-speciality"
           value={selectedSpeciality}
           label="Speciality"
-          style={{ width: "15%" }}
+          style={{ minWidth: "200px" }}
           onChange={handleSpecialityChange}
         >
           <option aria-label="None" value="" />
@@ -70,17 +68,18 @@ const DoctorList = (props) => {
           className="paper-customize"
           square
           style={{ justifyContent: "center" }}
-        >
-          <Typography className="doctor-customize">
+        > 
+        <Typography>
+          <div className="doctor-customize">
             Doctor Name : Abhishek Singh
-          </Typography>
+          </div>
           <br />
-          <Typography className="speciality-customize">
+          <div className="speciality-customize">
             Speciality : Obstetrician-Gynecologists
-          </Typography>
-          <Typography className="rating-customize">
+          </div>
+          <div className="rating-customize">
             Rating : * * * * *
-          </Typography>
+          </div>
           <div className="button-div-customize">
             <Button
               className="booknow-button-customize"
@@ -113,6 +112,7 @@ const DoctorList = (props) => {
               <div>{open === 1 ? <BookAppointment /> : <DoctorDetails />}</div>
             </Modal>
           </div>
+          </Typography>
         </Paper>
       </Grid>
     </div>
