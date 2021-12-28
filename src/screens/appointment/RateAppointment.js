@@ -37,16 +37,16 @@ const RateAppointment = () => {
       <div id="rating-body">
         <div className="rate-input">
           <TextField
+            label="Comments"
             onChange={(e) => setComment(e.target.value)}
             id="standard-multiline-static"
             multiline
-            rows={4}
-            label="Comment"
+            rows={3}
           />
         </div>
         <div className="rating-input-star">
           <FormControl>
-            Rating:
+            Rating: 
             <Rating
               onChange={(e, newValue) => {
                 setRating(newValue);
