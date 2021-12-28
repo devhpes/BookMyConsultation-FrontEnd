@@ -34,12 +34,12 @@
     color: #000;
 }
 
-.booknow-button-customize {
+#booknow-button-customize {
     width: 40%;
     font-weight: 300;
 }
 
-.viewdetails-button-customize {
+#viewdetails-button-customize {
     width: 40%;
     margin-left: 20px;
     background-color: #008000;
@@ -47,7 +47,7 @@
     font-weight: 300;
 }
 
-.viewdetails-button-customize:hover {
+#viewdetails-button-customize:hover {
     background-color: #066806;
 }
 

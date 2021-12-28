@@ -23,7 +23,15 @@ const RateAppointment = () => {
   return (
     <div>
     <Paper>
-      <div id="rating-modal-header">
+      <div style={{
+        background: 'purple',
+        color: 'white',
+        padding: '11px',
+        height: '70px',
+        display: 'flex',
+        alignItems: 'center',
+        fontSize: '1.2em'
+      }}>
         <span id="rating-header">Rate an Appointment</span>
       </div>
       <div id="rating-body">
