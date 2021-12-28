@@ -57,12 +57,13 @@ const DoctorList = (props) => {
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
 
-  const [viewDetailsModalOpen, setViewDetailsModalOpen] = React.useState(false);
+  const [doctorDetailsModalOpen, setdoctorDetailsModalOpen] =
+    React.useState(false);
   const [bookAppointmentModalOpen, setBookAppointmentModalOpen] =
     React.useState(false);
 
   const handleClose = () => {
-    setViewDetailsModalOpen(false);
+    setdoctorDetailsModalOpen(false);
     setBookAppointmentModalOpen(false);
   };
 
@@ -115,7 +116,7 @@ const DoctorList = (props) => {
                 type="submit"
                 variant="contained"
                 onClick={(_) => {
-                  setViewDetailsModalOpen(true);
+                  setdoctorDetailsModalOpen(true);
                 }}
               >
                 VIEW DETAILS
@@ -131,7 +132,7 @@ const DoctorList = (props) => {
                 <BookAppointment />
               </Modal>
               <Modal
-                isOpen={viewDetailsModalOpen || false}
+                isOpen={doctorDetailsModalOpen || false}
                 onRequestClose={handleClose}
                 aria-labelledby="book-appointment"
                 aria-describedby="booking"

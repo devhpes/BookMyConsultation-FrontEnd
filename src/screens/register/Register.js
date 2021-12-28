@@ -20,7 +20,7 @@ const Register = () => {
   const [passwordError, setErrorForPassword] = React.useState(false);
   const [mobileNumberError, setErrorForMobileNumber] = React.useState(false);
 
-  const [inValidMobileNumber, setErrorForIninValidMobileNumber] =
+  const [inValidMobileNumber, setErrorForInValidMobileNumber] =
     React.useState(false);
 
   const [validEmail, setErrorForInvalidEmail] = React.useState(false);
@@ -37,6 +37,7 @@ const Register = () => {
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
+    setErrorForInvalidEmail(false);
   };
 
   const passwordChangeHandler = (e) => {
@@ -45,6 +46,7 @@ const Register = () => {
 
   const mobileNumberChangeHandler = (e) => {
     setMobileNumber(e.target.value);
+    setErrorForInValidMobileNumber(false);
   };
 
   const registrationHandler = (e) => {
@@ -64,10 +66,10 @@ const Register = () => {
       : setErrorForMobileNumber(false);
 
     if (mobileNumber.length !== 10) {
-      setErrorForIninValidMobileNumber(true);
+      setErrorForInValidMobileNumber(true);
       flag = false;
     } else {
-      setErrorForIninValidMobileNumber(false);
+      setErrorForInValidMobileNumber(false);
     }
 
     if (!email.match(pattern)) {
@@ -155,7 +157,7 @@ const Register = () => {
             type="email"
           />
           <div>
-            {email.length === 0 && validEmail === true && (
+            {validEmail === true && (
               <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
@@ -188,9 +190,10 @@ const Register = () => {
             value={mobileNumber}
             onChange={mobileNumberChangeHandler}
             type="number"
+            error={inValidMobileNumber}
           />
           <div>
-            {mobileNumber.length === 0 && inValidMobileNumber === true && (
+            {inValidMobileNumber === true && (
               <FormHelperText id="invalid-error">
                 Enter valid mobile number
               </FormHelperText>

@@ -14,12 +14,13 @@ const Login = (props) => {
   const [emailError, setErrorForEmail] = React.useState(false);
   const [passwordError, setErrorForPassword] = React.useState(false);
 
-  const [validEmail, setErrorForInvalidEmail] = React.useState(false);
+  const [invalidEmail, setErrorForInvalidEmail] = React.useState(false);
 
   const [loggedIn, setLoggedIn] = React.useState(false);
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
+    setErrorForInvalidEmail(false);
   };
 
   const passwordChangeHandler = (e) => {
@@ -90,9 +91,9 @@ const Login = (props) => {
             onChange={emailChangeHandler}
           />
           <div>
-            {email.length === 0 && validEmail === true && (
+            {invalidEmail === true && (
               <FormHelperText id="invalid-error">
-                Enter valid Email
+                Enter valid Email 
               </FormHelperText>
             )}
           </div>
