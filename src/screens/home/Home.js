@@ -35,7 +35,7 @@ function TabPanel(props) {
       {...other}
     >
       {value === index && (
-        <Box sx={{ p: 2 }}>
+        <Box sx={{ p: 3 }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -66,9 +66,9 @@ const Home = () => {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <div>
-        <Box sx={{ width: "100%" }}>
+        <Box sx={{ minWidth: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
               value={value}

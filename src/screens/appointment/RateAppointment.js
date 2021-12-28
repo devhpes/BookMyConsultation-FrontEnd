@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Rating from "@material-ui/lab/Rating";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
+import Paper from "@material-ui/core/Paper";
 import "./Appointment.css";
 
 const RateAppointment = () => {
@@ -21,6 +22,7 @@ const RateAppointment = () => {
 
   return (
     <div>
+    <Paper>
       <div id="rating-modal-header">
         <span id="rating-header">Rate an Appointment</span>
       </div>
@@ -61,6 +63,7 @@ const RateAppointment = () => {
           RATE APPOINTMENT
         </Button>
       </div>
+      </Paper>
     </div>
   );
 };

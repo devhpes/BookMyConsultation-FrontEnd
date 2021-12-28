@@ -4,9 +4,16 @@ import Modal from "react-modal";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
 import { withStyles } from "@material-ui/core/styles";
-import { Button, Paper, Select, Typography, Grid, Divider } from "@material-ui/core";
+import {
+  Button,
+  Paper,
+  Select,
+  Typography,
+  Grid,
+  MenuItem,
+} from "@material-ui/core";
 
-Modal.setAppElement(document.getElementById("root"));
+Modal.setAppElement(document.getElementById("modal"));
 
 const customStyle = {
   content: {
@@ -49,69 +56,77 @@ const DoctorList = (props) => {
   };
   return (
     <div>
-      <Grid item xs={12} sm container alignItems="center" direction="column"  component="span">
-      <Typography  component="span" id="select-header">Select Speciality:</Typography>
+      <Grid
+        item
+        xs={12}
+        sm
+        container
+        alignItems="center"
+        direction="column"
+        component="span"
+      >
+        <Typography component="span" id="select-header">
+          Select Speciality:
+        </Typography>
         <Select
-          id="select-speciality"
           value={selectedSpeciality}
+          id="select-speciality"
           label="Speciality"
           style={{ minWidth: "200px" }}
           onChange={handleSpecialityChange}
         >
-          <option aria-label="None" value="" />
-          <option value={10}>Ten</option>
-          <option value={20}>Twenty</option>
-          <option value={30}>Thirty</option>
+          <MenuItem aria-label="None" value="" />
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
         </Select>
 
         <Paper
           className="paper-customize"
           square
           style={{ justifyContent: "center" }}
-        > 
-        <Typography>
-          <div className="doctor-customize">
-            Doctor Name : Abhishek Singh
-          </div>
-          <br />
-          <div className="speciality-customize">
-            Speciality : Obstetrician-Gynecologists
-          </div>
-          <div className="rating-customize">
-            Rating : * * * * *
-          </div>
-          <div className="button-div-customize">
-            <Button
-              className="booknow-button-customize"
-              variant="contained"
-              color="primary"
-              onClick={() => {
-                setOpen(1);
-              }}
-            >
-              BOOK NOW
-            </Button>
-            <Button
-              className="viewdetails-button-customize"
-              type="submit"
-              variant="contained"
-              onClick={() => {
-                setOpen(2);
-              }}
-            >
-              VIEW DETAILS
-            </Button>
-            <Modal
-              isOpen={open}
-              onRequestClose={handleClose}
-              aria-labelledby="book-appointment"
-              aria-describedby="booking"
-              style={customStyle}
-              className={classes.paper}
-            >
-              <div>{open === 1 ? <BookAppointment /> : <DoctorDetails />}</div>
-            </Modal>
-          </div>
+        >
+          <Typography>
+            <div className="doctor-customize">Doctor Name : Abhishek Singh</div>
+            <br />
+            <div className="speciality-customize">
+              Speciality : Obstetrician-Gynecologists
+            </div>
+            <div className="rating-customize">Rating : * * * * *</div>
+            <div className="button-div-customize">
+              <Button
+                className="booknow-button-customize"
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setOpen(1);
+                }}
+              >
+                BOOK NOW
+              </Button>
+              <Button
+                className="viewdetails-button-customize"
+                type="submit"
+                variant="contained"
+                onClick={() => {
+                  setOpen(2);
+                }}
+              >
+                VIEW DETAILS
+              </Button>
+              <Modal
+                isOpen={open}
+                onRequestClose={handleClose}
+                aria-labelledby="book-appointment"
+                aria-describedby="booking"
+                style={customStyle}
+                className={classes.paper}
+              >
+                <div>
+                  {open === 1 ? <BookAppointment /> : <DoctorDetails />}
+                </div>
+              </Modal>
+            </div>
           </Typography>
         </Paper>
       </Grid>

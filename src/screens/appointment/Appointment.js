@@ -7,7 +7,7 @@ import Paper from "@material-ui/core/Paper";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
-Modal.setAppElement(document.getElementById("root"));
+Modal.setAppElement(document.getElementById("modal"));
 
 const customStyle = {
   content: {
@@ -20,7 +20,7 @@ const customStyle = {
     marginRight: "-50%",
     padding: "0px",
     transform: "translate(-50%, -50%)",
-    border: "0.1px solid #D3D3D3"
+    border: "0.1px solid #D3D3D3",
   },
 };
 
@@ -67,8 +67,7 @@ const Appointment = (props) => {
           onRequestClose={handleClose}
           aria-labelledby="appointment-modal"
           aria-describedby="appointment-booking"
-          style={customStyle} 
-          
+          style={customStyle}
         >
           <div className={classes.paper}>
             <RateAppointment />
@@ -78,4 +77,4 @@ const Appointment = (props) => {
     </div>
   );
 };
-export default  withStyles(styles)(Appointment);
+export default withStyles(styles)(Appointment);
