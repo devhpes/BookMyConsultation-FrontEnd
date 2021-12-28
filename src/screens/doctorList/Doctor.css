@@ -1,8 +1,10 @@
 #select-header {
+    margin-top: 15px;
     margin-right: 65px;
     font-weight: 400;
     text-align: center;
     font-size: 1.1em;
+    color: #000;
 }
 
 #select-speciality {

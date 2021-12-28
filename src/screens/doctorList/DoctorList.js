@@ -55,8 +55,9 @@ const DoctorList = (props) => {
     setSelectedSpeciality(event.target.value);
   };
   return (
+    <div>
     <Grid item xs={12} sm container alignItems="center" direction="column">
-      <Typography id="select-header">
+      <Typography component={'div'} id="select-header">
         Select Speciality:
       </Typography>
       <Select
@@ -76,7 +77,7 @@ const DoctorList = (props) => {
         square
         style={{ justifyContent: "center" }}
       >
-        <Typography >
+        <Typography component={'div'}>
           <div className="doctor-customize">Doctor Name : Abhishek Singh</div>
           <br />
           <div className="speciality-customize">
@@ -118,6 +119,7 @@ const DoctorList = (props) => {
         </Typography>
       </Paper>
     </Grid>
+    </div>
   );
 };
 
