@@ -58,6 +58,8 @@ function a11yProps(index) {
 }
 
 const Home = (props) => {
+
+  let loggedIn = {...props.Login}
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -67,7 +69,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header {...props} />
+      <Header {...props} isLogin={loggedIn} />
       <div>
         <Box sx={{ minWidth: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -57,6 +57,7 @@ const DoctorList = (props) => {
   const classes = props;
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
+  console.log(selectedSpeciality);
 
   const [doctorList, setDoctorList] = React.useState([]);
 
@@ -67,18 +68,33 @@ const DoctorList = (props) => {
   const [bookAppointmentModalOpen, setBookAppointmentModalOpen] =
     React.useState(false);
 
+  const [filteredDoctorList, setFilteredDoctorList] = React.useState([]);
+
+  const doctorSpecialityURL = "http://localhost:8081/doctors/speciality";
+  const doctorListURL = "http://localhost:8081/doctors?speciality";
+
   const handleClose = () => {
     setdoctorDetailsModalOpen(false);
     setBookAppointmentModalOpen(false);
   };
 
   const handleSpecialityChange = (event) => {
-    setSelectedSpeciality(event.target.value);
-    console.log(event.target.value);
+    let speciality = event.target.value;
+    setSelectedSpeciality(speciality);
+    fetch(doctorListURL + "=" + speciality)
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          setDoctorList(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
   };
 
   const doctorSpecialityRendering = () => {
-    fetch("http://localhost:8081/doctors/speciality")
+    fetch(doctorSpecialityURL)
       .then((response) => response.json())
       .then(
         (result) => {
@@ -92,11 +108,11 @@ const DoctorList = (props) => {
   };
 
   const doctorListRenderding = () => {
-    fetch("http://localhost:8081/doctors?speciality")
+    fetch(doctorListURL + selectedSpeciality)
       .then((response) => response.json())
       .then(
         (result) => {
-          console.log(result);
+          console.log(doctorListURL + "=" + selectedSpeciality);
           setDoctorList(result);
         },
         (error) => {
@@ -106,8 +122,8 @@ const DoctorList = (props) => {
   };
 
   React.useEffect(() => {
-    doctorSpecialityRendering();
     doctorListRenderding();
+    doctorSpecialityRendering();
   }, []);
 
   return (
@@ -130,7 +146,7 @@ const DoctorList = (props) => {
           ))}
         </Select>
 
-        {doctorList.map((doctor) => (
+        {doctorList.map((doctor, index) => (
           <Paper
             className="paper-customize"
             square

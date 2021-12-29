@@ -19,6 +19,9 @@ const Login = (props) => {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  //const [userDetails, setUserDetails] = React.useState("");
+
+
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
     setErrorForInvalidEmail(false);
@@ -75,6 +78,9 @@ const Login = (props) => {
     }
   };
 
+  const handleLogout = () => {
+    setLoggedIn(false);
+  }
   return (
     <div>
       <form
