@@ -95,8 +95,8 @@ const Header = (props) => {
         &nbsp;&nbsp;
         <span id="header-title"> Doctor Finder </span>
         <div className="login-button">
-          <Button variant="contained" color="primary" onClick={handleOpen}>
-            Login
+          <Button variant="contained" color={props.isLogin ? "secondary" : "primary"} onClick={handleOpen}>
+            {props.isLogin? "Logout" : "Login"}
           </Button>
         </div>
       </header>

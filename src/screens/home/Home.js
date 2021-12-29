@@ -8,6 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
+import Login from "../../screens/login/Login";
 
 const useStyles = makeStyles({
   tabs: {
@@ -56,7 +57,7 @@ function a11yProps(index) {
   };
 }
 
-const Home = () => {
+const Home = (props) => {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
@@ -66,7 +67,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Header {...props} />
       <div>
         <Box sx={{ minWidth: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

@@ -4,6 +4,7 @@ import Modal from "react-modal";
 import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
 import { withStyles } from "@material-ui/core/styles";
+import Rating from "@material-ui/lab/Rating";
 import {
   Button,
   Paper,
@@ -57,6 +58,10 @@ const DoctorList = (props) => {
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
 
+  const [doctorList, setDoctorList] = React.useState([]);
+
+  const [doctorSpeciality, setDoctorSpeciality] = React.useState([]);
+
   const [doctorDetailsModalOpen, setdoctorDetailsModalOpen] =
     React.useState(false);
   const [bookAppointmentModalOpen, setBookAppointmentModalOpen] =
@@ -69,7 +74,42 @@ const DoctorList = (props) => {
 
   const handleSpecialityChange = (event) => {
     setSelectedSpeciality(event.target.value);
+    console.log(event.target.value);
   };
+
+  const doctorSpecialityRendering = () => {
+    fetch("http://localhost:8081/doctors/speciality")
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setDoctorSpeciality(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  const doctorListRenderding = () => {
+    fetch("http://localhost:8081/doctors?speciality")
+      .then((response) => response.json())
+      .then(
+        (result) => {
+          console.log(result);
+          setDoctorList(result);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  };
+
+  React.useEffect(() => {
+    doctorSpecialityRendering();
+    doctorListRenderding();
+  }, []);
+
   return (
     <div>
       <Grid item xs={12} sm container alignItems="center" direction="column">
@@ -83,67 +123,77 @@ const DoctorList = (props) => {
           style={{ minWidth: "200px" }}
           onChange={handleSpecialityChange}
         >
-          <MenuItem aria-label="None" value="" />
-          <MenuItem value={10}>Ten</MenuItem>
-          <MenuItem value={20}>Twenty</MenuItem>
-          <MenuItem value={30}>Thirty</MenuItem>
+          {doctorSpeciality.map((speciality) => (
+            <MenuItem aria-label="None" value={speciality} key={speciality.id}>
+              {speciality}
+            </MenuItem>
+          ))}
         </Select>
-        <Paper
-          className="paper-customize"
-          square
-          style={{ justifyContent: "center" }}
-        >
-          <Typography component={"div"}>
-            <div className="doctor-customize">Doctor Name : Abhishek Singh</div>
-            <br />
-            <div className="speciality-customize">
-              Speciality : Obstetrician-Gynecologists
-            </div>
-            <div className="rating-customize">Rating : * * * * *</div>
-            <div className="button-div-customize">
-              <Button
-                id="booknow-button-customize"
-                variant="contained"
-                color="primary"
-                onClick={(_) => {
-                  setBookAppointmentModalOpen(true);
-                }}
-              >
-                BOOK NOW
-              </Button>
-              <Button
-                id="viewdetails-button-customize"
-                type="submit"
-                variant="contained"
-                onClick={(_) => {
-                  setdoctorDetailsModalOpen(true);
-                }}
-              >
-                VIEW DETAILS
-              </Button>
-              <Modal
-                isOpen={bookAppointmentModalOpen || false}
-                onRequestClose={handleClose}
-                aria-labelledby="book-appointment"
-                aria-describedby="booking"
-                style={customStyle}
-                className={classes.paper}
-              >
-                <BookAppointment />
-              </Modal>
-              <Modal
-                isOpen={doctorDetailsModalOpen || false}
-                onRequestClose={handleClose}
-                aria-labelledby="book-appointment"
-                aria-describedby="booking"
-                style={customStyle2}
-                className={classes.paper}
-              >
-                <DoctorDetails />
-              </Modal>
-            </div>
-          </Typography>
-        </Paper>
+
+        {doctorList.map((doctor) => (
+          <Paper
+            className="paper-customize"
+            square
+            style={{ justifyContent: "center" }}
+            key={doctor.index}
+          >
+            <Typography component={"div"}>
+              <div className="doctor-customize">
+                Doctor Name : {doctor.firstName} {doctor.lastName}
+              </div>
+              <br />
+              <div className="speciality-customize">
+                Speciality : {doctor.speciality}
+              </div>
+              <div className="rating-customize">
+                Rating : &nbsp;
+                <Rating name="read-only" value={doctor.rating} readOnly />
+              </div>
+              <div className="button-div-customize">
+                <Button
+                  id="booknow-button-customize"
+                  variant="contained"
+                  color="primary"
+                  onClick={(_) => {
+                    setBookAppointmentModalOpen(true);
+                  }}
+                >
+                  BOOK NOW
+                </Button>
+                <Button
+                  id="viewdetails-button-customize"
+                  type="submit"
+                  variant="contained"
+                  onClick={(_) => {
+                    setdoctorDetailsModalOpen(true);
+                  }}
+                >
+                  VIEW DETAILS
+                </Button>
+                <Modal
+                  isOpen={bookAppointmentModalOpen || false}
+                  onRequestClose={handleClose}
+                  aria-labelledby="book-appointment"
+                  aria-describedby="booking"
+                  style={customStyle}
+                  className={classes.paper}
+                >
+                  <BookAppointment />
+                </Modal>
+                <Modal
+                  isOpen={doctorDetailsModalOpen || false}
+                  onRequestClose={handleClose}
+                  aria-labelledby="book-appointment"
+                  aria-describedby="booking"
+                  style={customStyle2}
+                  className={classes.paper}
+                >
+                  <DoctorDetails />
+                </Modal>
+              </div>
+            </Typography>
+          </Paper>
+        ))}
       </Grid>
     </div>
   );
