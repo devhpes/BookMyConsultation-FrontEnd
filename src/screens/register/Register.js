@@ -157,7 +157,7 @@ const Register = () => {
             type="email"
           />
           <div>
-            {validEmail === true && (
+            {email.length > 1 && validEmail === true && (
               <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
@@ -193,7 +193,7 @@ const Register = () => {
             error={inValidMobileNumber}
           />
           <div>
-            {inValidMobileNumber === true && (
+            {mobileNumber.length > 1 && inValidMobileNumber === true && (
               <FormHelperText id="invalid-error">
                 Enter valid mobile number
               </FormHelperText>
