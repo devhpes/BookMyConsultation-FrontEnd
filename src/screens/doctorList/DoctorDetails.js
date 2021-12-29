@@ -3,7 +3,7 @@ import "../doctorList/Doctor.css";
 import Rating from "@material-ui/lab/Rating";
 import { Typography, CardContent, Paper } from "@material-ui/core";
 
-const DoctorDetails = () => {
+const DoctorDetails = (props) => {
   return (
     <Paper>
       <div
@@ -20,7 +20,7 @@ const DoctorDetails = () => {
         </div>
       <CardContent>
       <Typography id="details-holder"> </Typography>
-      <Typography id="doctor-name">Dr: Alexis Singh</Typography>
+      <Typography id="doctor-name">Dr: {props.firstName}</Typography>
       <Typography id="details-text">Total Experience: 21 years</Typography>
       <Typography id="details-text">Speciality: CARDIOLOGIST</Typography>
 

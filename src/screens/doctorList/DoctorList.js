@@ -57,7 +57,6 @@ const DoctorList = (props) => {
   const classes = props;
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
-  console.log(selectedSpeciality);
 
   const [doctorList, setDoctorList] = React.useState([]);
 
@@ -67,8 +66,6 @@ const DoctorList = (props) => {
     React.useState(false);
   const [bookAppointmentModalOpen, setBookAppointmentModalOpen] =
     React.useState(false);
-
-  const [filteredDoctorList, setFilteredDoctorList] = React.useState([]);
 
   const doctorSpecialityURL = "http://localhost:8081/doctors/speciality";
   const doctorListURL = "http://localhost:8081/doctors?speciality";
@@ -82,43 +79,53 @@ const DoctorList = (props) => {
     let speciality = event.target.value;
     setSelectedSpeciality(speciality);
     fetch(doctorListURL + "=" + speciality)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          setDoctorList(result);
-        },
-        (error) => {
-          console.log(error);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
         }
-      );
+      })
+      .then((result) => {
+        setDoctorList(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const doctorSpecialityRendering = () => {
     fetch(doctorSpecialityURL)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          console.log(result);
-          setDoctorSpeciality(result);
-        },
-        (error) => {
-          console.log(error);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
         }
-      );
+      })
+      .then((result) => {
+        setDoctorSpeciality(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const doctorListRenderding = () => {
     fetch(doctorListURL + selectedSpeciality)
-      .then((response) => response.json())
-      .then(
-        (result) => {
-          console.log(doctorListURL + "=" + selectedSpeciality);
-          setDoctorList(result);
-        },
-        (error) => {
-          console.log(error);
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
         }
-      );
+      })
+      .then((result) => {
+        setDoctorList(result);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   React.useEffect(() => {
@@ -146,14 +153,13 @@ const DoctorList = (props) => {
           ))}
         </Select>
 
-        {doctorList.map((doctor, index) => (
+        {doctorList.map((doctor) => (
           <Paper
             className="paper-customize"
             square
             style={{ justifyContent: "center" }}
-            key={doctor.index}
           >
-            <Typography component={"div"}>
+            <Typography component={"div"} key={doctor.index}>
               <div className="doctor-customize">
                 Doctor Name : {doctor.firstName} {doctor.lastName}
               </div>
