@@ -91,7 +91,7 @@ const Login = (props) => {
             onChange={emailChangeHandler}
           />
           <div>
-            {email.length > 1 && invalidEmail === true && (
+            {email.length >= 1 && invalidEmail === true && (
               <FormHelperText id="invalid-error">
                 Enter valid Email 
               </FormHelperText>

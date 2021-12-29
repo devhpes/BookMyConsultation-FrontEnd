@@ -157,7 +157,7 @@ const Register = () => {
             type="email"
           />
           <div>
-            {email.length > 1 && validEmail === true && (
+            {email.length >= 1 && validEmail === true && (
               <FormHelperText id="invalid-error">
                 Enter valid Email
               </FormHelperText>
@@ -190,10 +190,9 @@ const Register = () => {
             value={mobileNumber}
             onChange={mobileNumberChangeHandler}
             type="number"
-            error={inValidMobileNumber}
           />
           <div>
-            {mobileNumber.length > 1 && inValidMobileNumber === true && (
+            {mobileNumber.length >= 1 && inValidMobileNumber === true && (
               <FormHelperText id="invalid-error">
                 Enter valid mobile number
               </FormHelperText>
