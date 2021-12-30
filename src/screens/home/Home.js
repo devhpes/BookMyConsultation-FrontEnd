@@ -69,7 +69,7 @@ const Home = (props) => {
 
   return (
     <div>
-      <Header {...props} isLogin={loggedIn} />
+      <Header {...props} />
       <div>
         <Box sx={{ minWidth: "100%" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

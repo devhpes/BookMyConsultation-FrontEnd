@@ -62,11 +62,6 @@ const Login = (props) => {
         .then((response) => {
           if (response.ok) {
             setLoggedIn(true);
-            // sessionStorage.setItem(
-            //   "access-token",
-            //   response.headers.get("access-token")
-            // );
-            // Setting timeout to hold login screen for 1sec after successful login
             setTimeout(() => {
               window.location.reload(false);
             }, 1000);

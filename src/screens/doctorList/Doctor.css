@@ -109,3 +109,7 @@
     color: red;
     font-size: 0.8em;
 }
+
+#card-content-customize {
+    padding-left: 5px;
+}

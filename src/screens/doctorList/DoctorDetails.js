@@ -1,9 +1,17 @@
 import React from "react";
 import "../doctorList/Doctor.css";
-import Rating from "@material-ui/lab/Rating";
 import { Typography, CardContent, Paper } from "@material-ui/core";
+import StarIcon from "@material-ui/icons/Star";
 
-const DoctorDetails = (props) => {
+const DoctorDetails = ({ doctorDetails }) => {
+  const ratings = () => {
+    let stars = [];
+    for (let i = 0; i < doctorDetails.rating; i++) {
+      stars.push(<StarIcon style={{ color: "gold" }} />);
+    }
+    return stars;
+  };
+
   return (
     <Paper>
       <div
@@ -17,24 +25,35 @@ const DoctorDetails = (props) => {
         }}
       >
         <Typography id="modal-header-doctor">Doctor Details</Typography>
-        </div>
-      <CardContent>
-      <Typography id="details-holder"> </Typography>
-      <Typography id="doctor-name">Dr: {props.firstName}</Typography>
-      <Typography id="details-text">Total Experience: 21 years</Typography>
-      <Typography id="details-text">Speciality: CARDIOLOGIST</Typography>
+      </div>
+      <CardContent id="card-content-customize" key={doctorDetails.id}>
+        <Typography id="doctor-name">
+          Dr: {doctorDetails.firstName} {doctorDetails.lastName}
+        </Typography>
+        <Typography id="details-text">
+          Total Experience: {doctorDetails.totalYearsOfExp}
+        </Typography>
+        <Typography id="details-text">
+          Speciality: {doctorDetails.speciality}
+        </Typography>
 
-      <Typography id="details-text">Date of Birth: 1996-12-12</Typography>
+        <Typography id="details-text">
+          Date of Birth: {doctorDetails.dob}
+        </Typography>
 
-      <Typography id="details-text">City: Renukoot</Typography>
+        <Typography id="details-text">
+          City: {doctorDetails.address.city}
+        </Typography>
 
-      <Typography id="details-text">Email: super.man@man.com</Typography>
+        <Typography id="details-text">
+          Email: {doctorDetails.emailId}
+        </Typography>
 
-      <Typography id="details-text">Mobile: 1800 1800 123</Typography>
+        <Typography id="details-text">
+          Mobile: {doctorDetails.mobile}
+        </Typography>
 
-      <Typography id="details-text">
-        Rating: <Rating name="read-only" value={3} readOnly />
-      </Typography>
+        <Typography id="details-text">Rating: {ratings()}</Typography>
       </CardContent>
     </Paper>
   );

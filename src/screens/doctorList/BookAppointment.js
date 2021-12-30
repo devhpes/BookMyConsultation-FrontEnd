@@ -14,13 +14,14 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 
-const BookAppointment = () => {
+const BookAppointment = ({ doctorDetails }) => {
   const [selectedDate, handleDateChange] = React.useState(new Date());
-  const [doctorName, setDoctorName] = React.useState("");
   const [medicalHistory, setMedicalHistory] = React.useState("");
   const [symptoms, setSymptoms] = React.useState("");
   const [slot, setSlot] = React.useState("None");
   const [slotError, setSlotError] = React.useState(false);
+
+  let doctorName = doctorDetails.firstName + " " + doctorDetails.lastName;
 
   const handleChange = (value) => {
     setSlot(value);
@@ -51,14 +52,11 @@ const BookAppointment = () => {
         <form noValidate autoComplete="off">
           <div id="doctor-name-text">
             <TextField
+              disabled
               value={doctorName}
-              onChange={(e) => {
-                setDoctorName(e.target.value);
-              }}
               id="standard-basic"
-              label="Doctor Name *"
+              label="Doctor Name"
             />
-            <div></div>
           </div>
           <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <KeyboardDatePicker

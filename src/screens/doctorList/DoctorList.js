@@ -33,7 +33,7 @@ const customStyle = {
 
 const customStyle2 = {
   content: {
-    width: "20%",
+    width: "25%",
     top: "50%",
     left: "50%",
     right: "auto",
@@ -57,6 +57,8 @@ const DoctorList = (props) => {
   const classes = props;
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
+
+  const [doctor, setDoctor] = React.useState({});
 
   const [doctorList, setDoctorList] = React.useState([]);
 
@@ -159,7 +161,7 @@ const DoctorList = (props) => {
             square
             style={{ justifyContent: "center" }}
           >
-            <Typography component={"div"} key={doctor.index}>
+            <Typography component={"div"} key={doctor.id}>
               <div className="doctor-customize">
                 Doctor Name : {doctor.firstName} {doctor.lastName}
               </div>
@@ -178,6 +180,7 @@ const DoctorList = (props) => {
                   color="primary"
                   onClick={(_) => {
                     setBookAppointmentModalOpen(true);
+                    setDoctor(doctor);
                   }}
                 >
                   BOOK NOW
@@ -188,34 +191,35 @@ const DoctorList = (props) => {
                   variant="contained"
                   onClick={(_) => {
                     setdoctorDetailsModalOpen(true);
+                    setDoctor(doctor);
                   }}
                 >
                   VIEW DETAILS
                 </Button>
-                <Modal
-                  isOpen={bookAppointmentModalOpen || false}
-                  onRequestClose={handleClose}
-                  aria-labelledby="book-appointment"
-                  aria-describedby="booking"
-                  style={customStyle}
-                  className={classes.paper}
-                >
-                  <BookAppointment />
-                </Modal>
-                <Modal
-                  isOpen={doctorDetailsModalOpen || false}
-                  onRequestClose={handleClose}
-                  aria-labelledby="book-appointment"
-                  aria-describedby="booking"
-                  style={customStyle2}
-                  className={classes.paper}
-                >
-                  <DoctorDetails />
-                </Modal>
               </div>
             </Typography>
           </Paper>
         ))}
+        <Modal
+          isOpen={bookAppointmentModalOpen || false}
+          onRequestClose={handleClose}
+          aria-labelledby="book-appointment"
+          aria-describedby="booking"
+          style={customStyle}
+          className={classes.paper}
+        >
+          <BookAppointment doctorDetails={doctor} />
+        </Modal>
+        <Modal
+          isOpen={doctorDetailsModalOpen || false}
+          onRequestClose={handleClose}
+          aria-labelledby="book-appointment"
+          aria-describedby="booking"
+          style={customStyle2}
+          className={classes.paper}
+        >
+          <DoctorDetails doctorDetails={doctor} />
+        </Modal>
       </Grid>
     </div>
   );
