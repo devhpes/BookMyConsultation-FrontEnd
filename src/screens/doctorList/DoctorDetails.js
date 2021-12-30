@@ -31,7 +31,7 @@ const DoctorDetails = ({ doctorDetails }) => {
           Dr: {doctorDetails.firstName} {doctorDetails.lastName}
         </Typography>
         <Typography id="details-text">
-          Total Experience: {doctorDetails.totalYearsOfExp}
+          Total Experience: {doctorDetails.totalYearsOfExp} years
         </Typography>
         <Typography id="details-text">
           Speciality: {doctorDetails.speciality}
