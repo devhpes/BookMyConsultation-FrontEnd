@@ -1,8 +1,4 @@
-import React from "react";
-
 export const useLogout = () => {
-  const [isLoggedIn, setLoggedIn] = React.useState(false);
-  const [userDetails, setUserDetails] = React.useState(null);
 
   const logoutURL = "http://localhost:8081/auth/logout";
   const token = sessionStorage.getItem("access-token");
@@ -24,13 +20,11 @@ export const useLogout = () => {
         }
       })
       .then((result) => {
-        setLoggedIn(false);
-        setUserDetails(null);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  return { logout, isLoggedIn, userDetails };
+  return { logout };
 };

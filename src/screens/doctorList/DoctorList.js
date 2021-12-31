@@ -14,7 +14,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-import { useAuthContext } from "../../hooks/useAuthContext";
 
 Modal.setAppElement(document.getElementById("modal"));
 
@@ -73,8 +72,6 @@ const DoctorList = (props) => {
 
   const doctorSpecialityURL = "http://localhost:8081/doctors/speciality";
   const doctorListURL = "http://localhost:8081/doctors?speciality";
-
-  const { user } = useAuthContext();
 
   const handleClose = () => {
     setdoctorDetailsModalOpen(false);

@@ -78,7 +78,7 @@ const Header = (props) => {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
-  const { logout, isLoggedIn, userDetails } = useLogout();
+  const { logout } = useLogout();
 
   const { user, dispatch } = useAuthContext();
 
