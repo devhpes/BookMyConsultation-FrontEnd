@@ -6,9 +6,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const Login = (props) => {
-  
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -21,8 +21,9 @@ const Login = (props) => {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
 
+  const { dispatch } = useAuthContext();
+
   const loginURL = "http://localhost:8081/auth/login";
-  const logoutURL = "http://localhost:8081/auth/logout";
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -71,39 +72,16 @@ const Login = (props) => {
         .then((userDetails) => {
           setLoggedIn(true);
           setUserDetails(userDetails);
+          dispatch({ type: "LOGIN", payload: userDetails.accessToken });
+          sessionStorage.setItem("access-token", userDetails.accessToken);
           setTimeout(() => {
-            window.location.reload(false);
+            props.handle();
           }, 1000);
         })
         .catch((error) => {
           console.log(error);
         });
     }
-  };
-
-  const handleLogoutHandler = () => {
-    fetch(logoutURL, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + userDetails.accessToken,
-      }
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          } else {
-            throw new Error("Something went wrong");
-          }
-        })
-        .then((result) => {
-          setLoggedIn(false);
-          setUserDetails();
-        })
-        .catch((error) => {
-          console.log(error);
-        }),
-    });
   };
 
   return (

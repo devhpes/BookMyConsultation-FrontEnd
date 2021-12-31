@@ -10,9 +10,11 @@ import CardContent from "@material-ui/core/CardContent";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import { withStyles } from "@material-ui/core/styles";
 import { Paper } from "@material-ui/core";
+import { useAuthContext } from "../../hooks/useAuthContext";
+import { useLogout } from "../../hooks/useLogout";
 
 Modal.setAppElement(document.getElementById("root"));
 
@@ -23,10 +25,10 @@ const customStyle = {
     right: "auto",
     bottom: "auto",
     height: "auto",
-    padding:'0px',
+    padding: "0px",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
-    border: "0.1px solid #D3D3D3"
+    border: "0.1px solid #D3D3D3",
   },
 };
 
@@ -76,6 +78,10 @@ const Header = (props) => {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
+  const { logout, isLoggedIn, userDetails } = useLogout();
+
+  const { user, dispatch } = useAuthContext();
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -88,6 +94,12 @@ const Header = (props) => {
     setValue(newValue);
   };
 
+  const deleteToken = async () => {
+    sessionStorage.removeItem("access-token");
+    await logout();
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <div>
       <header className="header">
@@ -95,7 +107,7 @@ const Header = (props) => {
         &nbsp;&nbsp;
         <span id="header-title"> Doctor Finder </span>
         <div className="login-button">
-          {!props.isLogin ? (
+          {!user || open ? (
             <div className="login-button">
               <Button variant="contained" color="primary" onClick={handleOpen}>
                 Login
@@ -103,7 +115,11 @@ const Header = (props) => {
             </div>
           ) : (
             <div className="login-button">
-              <Button variant="contained" color="secondary" onClick={props.handleLogout}>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={deleteToken}
+              >
                 Logout
               </Button>
             </div>
@@ -135,7 +151,7 @@ const Header = (props) => {
             </Tabs>
 
             <TabPanel value={value} index={0}>
-              <Login />
+              <Login handle={handleClose} />
             </TabPanel>
 
             <TabPanel value={value} index={1}>
@@ -148,4 +164,4 @@ const Header = (props) => {
   );
 };
 
-export default  withStyles(styles)(Header);
+export default withStyles(styles)(Header);

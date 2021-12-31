@@ -14,6 +14,8 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
+import { useAuthContext } from "../../hooks/useAuthContext";
+
 Modal.setAppElement(document.getElementById("modal"));
 
 const customStyle = {
@@ -71,6 +73,8 @@ const DoctorList = (props) => {
 
   const doctorSpecialityURL = "http://localhost:8081/doctors/speciality";
   const doctorListURL = "http://localhost:8081/doctors?speciality";
+
+  const { user } = useAuthContext();
 
   const handleClose = () => {
     setdoctorDetailsModalOpen(false);
@@ -163,7 +167,7 @@ const DoctorList = (props) => {
             style={{ justifyContent: "center" }}
             key={index}
           >
-            <Typography component={"div"} >
+            <Typography component={"div"}>
               <div className="doctor-customize">
                 Doctor Name : {doctor.firstName} {doctor.lastName}
               </div>
