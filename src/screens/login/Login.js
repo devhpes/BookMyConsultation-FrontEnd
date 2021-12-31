@@ -75,7 +75,7 @@ const Login = (props) => {
           dispatch({ type: "LOGIN", payload: userDetails.accessToken });
           sessionStorage.setItem("access-token", userDetails.accessToken);
           setTimeout(() => {
-            props.handle();
+            props.handleModalClose();
           }, 1000);
         })
         .catch((error) => {

@@ -151,11 +151,11 @@ const Header = (props) => {
             </Tabs>
 
             <TabPanel value={value} index={0}>
-              <Login handle={handleClose} />
+              <Login handleModalClose={handleClose} />
             </TabPanel>
 
             <TabPanel value={value} index={1}>
-              <Register />
+              <Register handleModalClose={handleClose} />
             </TabPanel>
           </CardContent>
         </Paper>
