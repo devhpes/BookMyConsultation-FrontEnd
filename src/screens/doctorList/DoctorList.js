@@ -133,6 +133,7 @@ const DoctorList = (props) => {
   React.useEffect(() => {
     doctorListRenderding();
     doctorSpecialityRendering();
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -148,20 +149,21 @@ const DoctorList = (props) => {
           style={{ minWidth: "200px" }}
           onChange={handleSpecialityChange}
         >
-          {doctorSpeciality.map((speciality) => (
-            <MenuItem aria-label="None" value={speciality} key={speciality.id}>
+          {doctorSpeciality.map((speciality, index) => (
+            <MenuItem aria-label="None" value={speciality} key={index}>
               {speciality}
             </MenuItem>
           ))}
         </Select>
 
-        {doctorList.map((doctor) => (
+        {doctorList.map((doctor, index) => (
           <Paper
             className="paper-customize"
             square
             style={{ justifyContent: "center" }}
+            key={index}
           >
-            <Typography component={"div"} key={doctor.id}>
+            <Typography component={"div"} >
               <div className="doctor-customize">
                 Doctor Name : {doctor.firstName} {doctor.lastName}
               </div>

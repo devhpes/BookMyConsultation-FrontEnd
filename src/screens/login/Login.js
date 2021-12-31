@@ -12,6 +12,8 @@ const Login = (props) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
+  const [userDetails, setUserDetails] = React.useState(null);
+
   const [emailError, setErrorForEmail] = React.useState(false);
   const [passwordError, setErrorForPassword] = React.useState(false);
 
@@ -19,8 +21,8 @@ const Login = (props) => {
 
   const [loggedIn, setLoggedIn] = React.useState(false);
 
-  //const [userDetails, setUserDetails] = React.useState("");
-
+  const loginURL = "http://localhost:8081/auth/login";
+  const logoutURL = "http://localhost:8081/auth/logout";
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -51,7 +53,7 @@ const Login = (props) => {
       setErrorForInvalidEmail(false);
     }
     if (flag) {
-      fetch("http://localhost:8081/auth/login", {
+      fetch(loginURL, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -61,11 +63,17 @@ const Login = (props) => {
       })
         .then((response) => {
           if (response.ok) {
-            setLoggedIn(true);
-            setTimeout(() => {
-              window.location.reload(false);
-            }, 1000);
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
           }
+        })
+        .then((userDetails) => {
+          setLoggedIn(true);
+          setUserDetails(userDetails);
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 1000);
         })
         .catch((error) => {
           console.log(error);
@@ -73,9 +81,31 @@ const Login = (props) => {
     }
   };
 
-  const handleLogout = () => {
-    setLoggedIn(false);
-  }
+  const handleLogoutHandler = () => {
+    fetch(logoutURL, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + userDetails.accessToken,
+      }
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((result) => {
+          setLoggedIn(false);
+          setUserDetails();
+        })
+        .catch((error) => {
+          console.log(error);
+        }),
+    });
+  };
+
   return (
     <div>
       <form
@@ -95,7 +125,7 @@ const Login = (props) => {
           <div>
             {email.length >= 1 && invalidEmail === true && (
               <FormHelperText id="invalid-error">
-                Enter valid Email 
+                Enter valid Email
               </FormHelperText>
             )}
           </div>

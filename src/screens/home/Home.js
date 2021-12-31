@@ -8,7 +8,6 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import { makeStyles } from "@material-ui/core/styles";
-import Login from "../../screens/login/Login";
 
 const useStyles = makeStyles({
   tabs: {
@@ -59,7 +58,6 @@ function a11yProps(index) {
 
 const Home = (props) => {
 
-  let loggedIn = {...props.Login}
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

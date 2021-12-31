@@ -20,6 +20,7 @@ const BookAppointment = ({ doctorDetails }) => {
   const [symptoms, setSymptoms] = React.useState("");
   const [slot, setSlot] = React.useState("None");
   const [slotError, setSlotError] = React.useState(false);
+  const timeSlots = ['None', '11AM-12PM', '12PM-1PM', '1PM-2PM', '2PM-3PM', '3PM-4PM', '4PM-5PM', '5PM-6PM', '6PM-7PM'];
 
   let doctorName = doctorDetails.firstName + " " + doctorDetails.lastName;
 
@@ -53,6 +54,7 @@ const BookAppointment = ({ doctorDetails }) => {
           <div id="doctor-name-text">
             <TextField
               disabled
+              required
               value={doctorName}
               id="standard-basic"
               label="Doctor Name"
@@ -84,10 +86,9 @@ const BookAppointment = ({ doctorDetails }) => {
                   handleChange(e.target.value);
                 }}
               >
-                <MenuItem value={"None"}>None</MenuItem>
-                <MenuItem value={10}>10:00-11:00AM</MenuItem>
-                <MenuItem value={20}>11:00-12:00AM</MenuItem>
-                <MenuItem value={30}>12:00-1:00PM</MenuItem>
+              {timeSlots.map((time, key) => {
+                return <MenuItem key={key} value={time}>{time}</MenuItem>;
+              })}
               </Select>
               <div>
                 {slot === "None" && slotError === true && (
