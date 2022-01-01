@@ -96,6 +96,7 @@ const Header = (props) => {
 
   const deleteToken = async () => {
     sessionStorage.removeItem("access-token");
+    sessionStorage.removeItem("emailId");
     await logout();
     dispatch({ type: "LOGOUT" });
   };

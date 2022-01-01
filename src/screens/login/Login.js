@@ -72,8 +72,10 @@ const Login = (props) => {
         .then((userDetails) => {
           setLoggedIn(true);
           setUserDetails(userDetails);
+          console.log(userDetails);
           dispatch({ type: "LOGIN", payload: userDetails.accessToken });
           sessionStorage.setItem("access-token", userDetails.accessToken);
+          sessionStorage.setItem("emailId", userDetails.emailAddress);
           setTimeout(() => {
             props.handleModalClose();
           }, 1000);

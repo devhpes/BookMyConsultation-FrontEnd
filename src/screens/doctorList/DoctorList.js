@@ -14,7 +14,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 
-
 Modal.setAppElement(document.getElementById("modal"));
 
 const customStyle = {

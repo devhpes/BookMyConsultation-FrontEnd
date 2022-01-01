@@ -15,22 +15,119 @@ import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 
 const BookAppointment = ({ doctorDetails }) => {
-  const [selectedDate, handleDateChange] = React.useState(new Date());
-  const [medicalHistory, setMedicalHistory] = React.useState("");
+  const date = new Date().toISOString().split("T")[0];
+  const [selectedDate, handleDateChange] = React.useState(date);
+  const [slots, setSlots] = React.useState([]);
+  const [slotsAvailable, setSlotsAvailable] = React.useState("");
   const [symptoms, setSymptoms] = React.useState("");
-  const [slot, setSlot] = React.useState("None");
+  const [medicalHistory, setMedicalHistory] = React.useState("");
   const [slotError, setSlotError] = React.useState(false);
-  const timeSlots = ['None', '11AM-12PM', '12PM-1PM', '1PM-2PM', '2PM-3PM', '3PM-4PM', '4PM-5PM', '5PM-6PM', '6PM-7PM'];
+
+  const [userFirstName, setUserFirstName] = React.useState("");
+  const [userLastName, setUserLastName] = React.useState("");
+
+  const accessToken = sessionStorage.getItem("access-token");
+  const emailId = sessionStorage.getItem("emailId");
 
   let doctorName = doctorDetails.firstName + " " + doctorDetails.lastName;
 
-  const handleChange = (value) => {
-    setSlot(value);
-    console.log(value);
+  const usersAPI = "http://localhost:8081/users/";
+
+  const appointmentBookingURL = "http://localhost:8081/appointments/";
+
+  const appointmentSlots = `http://localhost:8081/doctors/${doctorDetails.id}/timeSlots?date=${selectedDate}`;
+
+  const handleSlotChange = (e) => {
+    setSlotsAvailable(e.target.value);
   };
-  const handleBooking = (e) => {
+
+  const userDetailsAPI = () => {
+    fetch(usersAPI + emailId, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json",
+        Accept: "application/json;Charset=UTF-8",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
+      .then((details) => {
+        setUserFirstName(details.firstName);
+        setUserLastName(details.lastName);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const appointmentSlotAPI = () => {
+    fetch(appointmentSlots)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Something went wrong");
+        }
+      })
+      .then((slots) => {
+        setSlots(slots.timeSlot);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  React.useEffect(() => {
+    userDetailsAPI();
+    appointmentSlotAPI();
+    // eslint-disable-next-line
+  }, []);
+
+  const appointmentBookingHandler = (e) => {
     if (e) e.preventDefault();
-    slot === "None" ? setSlotError(true) : setSlotError(false);
+
+    slotsAvailable === "" ? setSlotError(true) : setSlotError(false);
+
+    if (slotsAvailable !== "") {
+      fetch(appointmentBookingURL, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json;Charset=UTF-8",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          doctorId: doctorDetails.id,
+          doctorName: doctorName,
+          userId: emailId,
+          userName: userFirstName + " " + userLastName,
+          userEmailId: emailId,
+          timeSlot: slotsAvailable,
+          appointmentDate: selectedDate,
+          symptoms: symptoms,
+          priorMedicalHistory: medicalHistory,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((result) => {
+          console.log("Appointment Success Full");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   return (
@@ -81,17 +178,19 @@ const BookAppointment = ({ doctorDetails }) => {
               <Select
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
-                value={slot}
-                onChange={(e) => {
-                  handleChange(e.target.value);
-                }}
+                value={slotsAvailable}
+                onChange={handleSlotChange}
               >
-              {timeSlots.map((time, key) => {
-                return <MenuItem key={key} value={time}>{time}</MenuItem>;
-              })}
+                {slots.map((time, key) => {
+                  return (
+                    <MenuItem key={key} value={time}>
+                      {time}
+                    </MenuItem>
+                  );
+                })}
               </Select>
               <div>
-                {slot === "None" && slotError === true && (
+                {slotsAvailable === "" && slotError === true && (
                   <FormHelperText id="invalid-error">
                     Select a time slot
                   </FormHelperText>
@@ -127,7 +226,7 @@ const BookAppointment = ({ doctorDetails }) => {
               id="bookappointment-button-customize"
               variant="contained"
               color="primary"
-              onClick={handleBooking}
+              onClick={appointmentBookingHandler}
             >
               BOOK APPOINTMENT
             </Button>

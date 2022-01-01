@@ -1,5 +1,4 @@
 export const useLogout = () => {
-
   const logoutURL = "http://localhost:8081/auth/logout";
   const token = sessionStorage.getItem("access-token");
 
@@ -14,12 +13,15 @@ export const useLogout = () => {
     })
       .then((response) => {
         if (response.ok) {
+          console.log(response);
           return response.json();
         } else {
+          console.log(response);
           throw new Error("Something went wrong");
         }
       })
       .then((result) => {
+        console.log("Logout Handler Working", result);
       })
       .catch((error) => {
         console.log(error);
