@@ -13,6 +13,7 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
+import { useAuthContext } from "../../hooks/useAuthContext";
 
 const BookAppointment = ({ doctorDetails }) => {
   const date = new Date().toISOString().split("T")[0];
@@ -26,7 +27,8 @@ const BookAppointment = ({ doctorDetails }) => {
   const [userFirstName, setUserFirstName] = React.useState("");
   const [userLastName, setUserLastName] = React.useState("");
 
-  const accessToken = sessionStorage.getItem("access-token");
+  const { userToken } = useAuthContext();
+
   const emailId = sessionStorage.getItem("emailId");
 
   let doctorName = doctorDetails.firstName + " " + doctorDetails.lastName;
@@ -47,7 +49,7 @@ const BookAppointment = ({ doctorDetails }) => {
       headers: {
         "Content-type": "application/json",
         Accept: "application/json;Charset=UTF-8",
-        Authorization: `Bearer ${accessToken}`,
+        Authorization: `Bearer ${userToken}`,
       },
     })
       .then((response) => {
@@ -100,7 +102,7 @@ const BookAppointment = ({ doctorDetails }) => {
         headers: {
           "Content-type": "application/json",
           Accept: "application/json;Charset=UTF-8",
-          Authorization: `Bearer ${accessToken}`,
+          Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({
           doctorId: doctorDetails.id,
@@ -122,7 +124,7 @@ const BookAppointment = ({ doctorDetails }) => {
           }
         })
         .then((result) => {
-          console.log("Appointment Success Full");
+          console.log(result)
         })
         .catch((error) => {
           console.log(error);

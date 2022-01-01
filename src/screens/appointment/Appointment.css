@@ -16,10 +16,11 @@
     font-size: 1.3em;
 }
 
-.details-text {
+#details-text {
     padding: 2px;
     color: #212121;
-    font-weight: 500;
+    font-size: 1em;
+    font-weight: 400;
 }
 
 #from-btn {
@@ -43,4 +44,9 @@
 
 .rating-error {
     margin-left: 4px;
+}
+
+#appointment-tab-error {
+    font-size: 1.3em;
+    margin-top: 20px;
 }

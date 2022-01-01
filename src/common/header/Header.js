@@ -78,9 +78,9 @@ const Header = (props) => {
   const [value, setValue] = React.useState(0);
   const [open, setOpen] = React.useState(false);
 
-  const { logout } = useLogout();
+  const { userToken, dispatch } = useAuthContext();
 
-  const { user, dispatch } = useAuthContext();
+  const { logout } = useLogout();
 
   const handleOpen = () => {
     setOpen(true);
@@ -97,6 +97,8 @@ const Header = (props) => {
   const deleteToken = async () => {
     sessionStorage.removeItem("access-token");
     sessionStorage.removeItem("emailId");
+    sessionStorage.removeItem("appointmentId");
+    sessionStorage.removeItem("doctorId");
     await logout();
     dispatch({ type: "LOGOUT" });
   };
@@ -108,7 +110,7 @@ const Header = (props) => {
         &nbsp;&nbsp;
         <span id="header-title"> Doctor Finder </span>
         <div className="login-button">
-          {!user || open ? (
+          {!userToken || open ? (
             <div className="login-button">
               <Button variant="contained" color="primary" onClick={handleOpen}>
                 Login
