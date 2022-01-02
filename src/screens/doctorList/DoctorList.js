@@ -225,7 +225,7 @@ const DoctorList = (props) => {
           style={customStyle2}
           className={classes.paper}
         >
-          <DoctorDetails doctorDetails={doctor} />
+          <DoctorDetails doctorDetails={doctor} key={doctor.doctorId} />
         </Modal>
       </Grid>
     </div>

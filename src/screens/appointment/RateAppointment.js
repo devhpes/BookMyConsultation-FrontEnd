@@ -50,7 +50,6 @@ const RateAppointment = ({ appointmentDetails, handleClose }) => {
             throw new Error("Something went wrong");
           }
         })
-        .then((rating) => {})
         .catch((error) => {
           console.log(error);
         });

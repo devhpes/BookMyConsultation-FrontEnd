@@ -26,7 +26,7 @@ const DoctorDetails = ({ doctorDetails }) => {
       >
         <Typography id="modal-header-doctor">Doctor Details</Typography>
       </div>
-      <CardContent id="card-content-customize" key={doctorDetails.index}>
+      <CardContent id="card-content-customize">
         <Typography id="doctor-name">
           Dr: {doctorDetails.firstName} {doctorDetails.lastName}
         </Typography>
