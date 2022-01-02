@@ -94,8 +94,6 @@ const Register = (props) => {
           emailId: email,
         }),
       };
-      console.log(requestOptions);
-
       fetch("http://localhost:8081/users/register", requestOptions)
         .then((response) => {
           if (response.ok) {

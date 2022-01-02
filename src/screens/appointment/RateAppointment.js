@@ -46,7 +46,6 @@ const RateAppointment = ({ appointmentDetails, handleClose }) => {
             setTimeout(() => {
               handleClose();
             }, 1500);
-            return response.json();
           } else {
             throw new Error("Something went wrong");
           }

@@ -15,7 +15,7 @@ import Select from "@material-ui/core/Select";
 import { Typography } from "@material-ui/core";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-const BookAppointment = ({ doctorDetails }) => {
+const BookAppointment = ({ doctorDetails, handleClose }) => {
   const date = new Date().toISOString().split("T")[0];
   const [selectedDate, handleDateChange] = React.useState(date);
   const [slots, setSlots] = React.useState([]);
@@ -26,6 +26,9 @@ const BookAppointment = ({ doctorDetails }) => {
 
   const [userFirstName, setUserFirstName] = React.useState("");
   const [userLastName, setUserLastName] = React.useState("");
+
+  const [appointmentSuccessFul, setAppointmentSuccessFul] =
+    React.useState(false);
 
   const { userToken } = useAuthContext();
 
@@ -118,13 +121,14 @@ const BookAppointment = ({ doctorDetails }) => {
       })
         .then((response) => {
           if (response.ok) {
+            setAppointmentSuccessFul(true);
+            setTimeout(() => {
+              handleClose();
+            }, 1500);
             return response.json();
           } else {
             throw new Error("Something went wrong");
           }
-        })
-        .then((result) => {
-          console.log(result)
         })
         .catch((error) => {
           console.log(error);
@@ -234,6 +238,13 @@ const BookAppointment = ({ doctorDetails }) => {
             </Button>
           </FormControl>
         </form>
+      </div>
+      <div>
+        {appointmentSuccessFul === true && (
+          <FormHelperText id="booking-success-customize">
+            Appointment Booking Successful
+          </FormHelperText>
+        )}
       </div>
     </div>
   );

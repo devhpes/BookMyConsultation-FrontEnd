@@ -113,3 +113,10 @@
 #card-content-customize {
     padding-left: 5px;
 }
+
+#booking-success-customize {
+    margin-top: -20px;
+    font-size: 1em;
+    padding: 12px;
+    color: green;
+}

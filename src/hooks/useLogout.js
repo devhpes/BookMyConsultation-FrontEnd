@@ -13,10 +13,8 @@ export const useLogout = () => {
     })
       .then((response) => {
         if (response.ok) {
-          console.log(response);
           return response.json();
         } else {
-          console.log(response);
           throw new Error("Something went wrong");
         }
       })

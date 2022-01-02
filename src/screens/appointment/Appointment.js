@@ -77,7 +77,9 @@ const Appointment = (props) => {
   };
 
   React.useEffect(() => {
-    getUserAppointment();
+    if (userToken) {
+      getUserAppointment();
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -132,7 +134,10 @@ const Appointment = (props) => {
         style={customStyle}
       >
         <div className={classes.paper}>
-          <RateAppointment appointmentDetails={doctorAppointmentDetails} handleClose={handleClose} />
+          <RateAppointment
+            appointmentDetails={doctorAppointmentDetails}
+            handleClose={handleClose}
+          />
         </div>
       </Modal>
     </div>

@@ -5,6 +5,7 @@ import BookAppointment from "./BookAppointment";
 import DoctorDetails from "./DoctorDetails";
 import { withStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
+import { useAuthContext } from "../../hooks/useAuthContext";
 import {
   Button,
   Paper,
@@ -55,6 +56,8 @@ const styles = (theme) => ({
 
 const DoctorList = (props) => {
   const classes = props;
+
+  const { userToken } = useAuthContext();
 
   const [selectedSpeciality, setSelectedSpeciality] = React.useState("");
 
@@ -202,16 +205,18 @@ const DoctorList = (props) => {
             </Typography>
           </Paper>
         ))}
-        <Modal
-          isOpen={bookAppointmentModalOpen || false}
-          onRequestClose={handleClose}
-          aria-labelledby="book-appointment"
-          aria-describedby="booking"
-          style={customStyle}
-          className={classes.paper}
-        >
-          <BookAppointment doctorDetails={doctor} />
-        </Modal>
+        {userToken && (
+          <Modal
+            isOpen={bookAppointmentModalOpen || false}
+            onRequestClose={handleClose}
+            aria-labelledby="book-appointment"
+            aria-describedby="booking"
+            style={customStyle}
+            className={classes.paper}
+          >
+            <BookAppointment doctorDetails={doctor} handleClose={handleClose}/>
+          </Modal>
+        )}
         <Modal
           isOpen={doctorDetailsModalOpen || false}
           onRequestClose={handleClose}
