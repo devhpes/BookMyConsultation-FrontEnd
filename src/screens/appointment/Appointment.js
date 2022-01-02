@@ -39,14 +39,10 @@ const Appointment = (props) => {
   const emailId = sessionStorage.getItem("emailId");
 
   const [userAppointments, setUserAppointments] = React.useState([]);
-
-  console.log(userAppointments);
+  const [doctorAppointmentDetails, setDoctorAppointmentDetails] =
+    React.useState(null);
 
   const { userToken } = useAuthContext();
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const handleClose = () => {
     setOpen(false);
@@ -54,7 +50,9 @@ const Appointment = (props) => {
 
   const getUserAppointmentAPI = `http://localhost:8081/users/${emailId}/appointments`;
 
-  const getUserAppointment = () => {
+  const getUserAppointment = (e) => {
+    if (e) e.preventDefault();
+
     fetch(getUserAppointmentAPI, {
       method: "GET",
       headers: {
@@ -106,7 +104,10 @@ const Appointment = (props) => {
               </Typography>
 
               <Button
-                onClick={handleOpen}
+                onClick={() => {
+                  setDoctorAppointmentDetails(appointment);
+                  setOpen(true);
+                }}
                 id="from-btn"
                 variant="contained"
                 color="primary"
@@ -131,7 +132,7 @@ const Appointment = (props) => {
         style={customStyle}
       >
         <div className={classes.paper}>
-          <RateAppointment/>
+          <RateAppointment appointmentDetails={doctorAppointmentDetails} handleClose={handleClose} />
         </div>
       </Modal>
     </div>

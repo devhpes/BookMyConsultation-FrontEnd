@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import "./Appointment.css";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-const RateAppointment = () => {
+const RateAppointment = ({ appointmentDetails, handleClose }) => {
   const [comment, setComment] = React.useState("");
   const [rating, setRating] = React.useState(0);
   const [ratingError, setRatingError] = React.useState(false);
@@ -17,7 +17,9 @@ const RateAppointment = () => {
 
   const ratingURL = "http://localhost:8081/ratings";
 
-  const handleRating = () => {
+  const handleRating = (e) => {
+    if (e) e.preventDefault();
+
     if (rating === 0) {
       setRatingError(true);
       return;
@@ -32,23 +34,24 @@ const RateAppointment = () => {
           Authorization: `Bearer ${userToken}`,
         },
         body: JSON.stringify({
-          // appointmentId: appointmentId,
-          // doctorId: doctorId,
-          rating: `${rating}`,
+          appointmentId: appointmentDetails.appointmentId,
+          doctorId: appointmentDetails.doctorId,
+          rating: rating,
           comments: comment,
         }),
       })
         .then((response) => {
           if (response.ok) {
+            setRatingSuccess(true);
+            setTimeout(() => {
+              handleClose();
+            }, 1500);
             return response.json();
           } else {
             throw new Error("Something went wrong");
           }
         })
-        .then((rating) => {
-          setRatingSuccess(true);
-          console.log(ratingSuccess)
-        })
+        .then((rating) => {})
         .catch((error) => {
           console.log(error);
         });
@@ -85,8 +88,11 @@ const RateAppointment = () => {
             <FormControl>
               Rating:
               <Rating
+                value={rating}
                 onChange={(e, newValue) => {
-                  setRating(newValue);
+                  if (newValue) {
+                    setRating(newValue);
+                  }
                 }}
                 name="read-only"
               />
@@ -110,9 +116,7 @@ const RateAppointment = () => {
         </div>
         <div>
           {ratingSuccess === true && (
-            <FormHelperText style={{ color: "green" }}>
-              Rating Success
-            </FormHelperText>
+            <FormHelperText id="rating-success">Rating Success</FormHelperText>
           )}
         </div>
       </Paper>
