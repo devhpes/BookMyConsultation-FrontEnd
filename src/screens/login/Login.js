@@ -8,7 +8,7 @@ import FormHelperText from "@material-ui/core/FormHelperText";
 import Button from "@material-ui/core/Button";
 import { useAuthContext } from "../../hooks/useAuthContext";
 
-const Login = (props) => {
+const Login = (props, baseUrl) => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 

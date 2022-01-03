@@ -205,18 +205,17 @@ const DoctorList = (props) => {
             </Typography>
           </Paper>
         ))}
-        {userToken && (
-          <Modal
-            isOpen={bookAppointmentModalOpen || false}
-            onRequestClose={handleClose}
-            aria-labelledby="book-appointment"
-            aria-describedby="booking"
-            style={customStyle}
-            className={classes.paper}
-          >
-            <BookAppointment doctorDetails={doctor} handleClose={handleClose}/>
-          </Modal>
-        )}
+        <Modal
+          isOpen={bookAppointmentModalOpen || false}
+          onRequestClose={handleClose}
+          aria-labelledby="book-appointment"
+          aria-describedby="booking"
+          style={customStyle}
+          className={classes.paper}
+        >
+          <BookAppointment doctorDetails={doctor} handleClose={handleClose} />
+        </Modal>
+
         <Modal
           isOpen={doctorDetailsModalOpen || false}
           onRequestClose={handleClose}

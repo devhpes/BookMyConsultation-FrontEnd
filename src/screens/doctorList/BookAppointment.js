@@ -30,6 +30,8 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
   const [appointmentSuccessFul, setAppointmentSuccessFul] =
     React.useState(false);
 
+  const [isSlotEmpty, setIsSlotEmpty] = React.useState(false);
+
   const { userToken } = useAuthContext();
 
   const emailId = sessionStorage.getItem("emailId");
@@ -43,32 +45,40 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
   const appointmentSlots = `http://localhost:8081/doctors/${doctorDetails.id}/timeSlots?date=${selectedDate}`;
 
   const handleSlotChange = (e) => {
-    setSlotsAvailable(e.target.value);
+    if (isSlotEmpty) {
+      alert("Either the slot is already booked or not available");
+    } else {
+      setSlotsAvailable(e.target.value);
+    }
   };
 
   const userDetailsAPI = () => {
-    fetch(usersAPI + emailId, {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Accept: "application/json;Charset=UTF-8",
-        Authorization: `Bearer ${userToken}`,
-      },
-    })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
-          throw new Error("Something went wrong");
-        }
+    if (userToken === null) {
+      return;
+    } else {
+      fetch(usersAPI + emailId, {
+        method: "GET",
+        headers: {
+          "Content-type": "application/json",
+          Accept: "application/json;Charset=UTF-8",
+          Authorization: `Bearer ${userToken}`,
+        },
       })
-      .then((details) => {
-        setUserFirstName(details.firstName);
-        setUserLastName(details.lastName);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error("Something went wrong");
+          }
+        })
+        .then((details) => {
+          setUserFirstName(details.firstName);
+          setUserLastName(details.lastName);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
 
   const appointmentSlotAPI = () => {
@@ -80,8 +90,14 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
           throw new Error("Something went wrong");
         }
       })
-      .then((slots) => {
-        setSlots(slots.timeSlot);
+      .then((slot) => {
+        setSlots(slot.timeSlot);
+        console.log(slot);
+        if (slot.length <= 0) {
+          setIsSlotEmpty(true);
+        } else {
+          setIsSlotEmpty(false);
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -89,13 +105,20 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
   };
 
   React.useEffect(() => {
-    userDetailsAPI();
-    appointmentSlotAPI();
+    if (userToken !== null) {
+      userDetailsAPI();
+      appointmentSlotAPI();
+    }
     // eslint-disable-next-line
   }, []);
 
   const appointmentBookingHandler = (e) => {
     if (e) e.preventDefault();
+
+    if (userToken === null) {
+      alert("Please login to book Appointment");
+      return;
+    }
 
     slotsAvailable === "" ? setSlotError(true) : setSlotError(false);
 
@@ -126,6 +149,8 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
               handleClose();
             }, 1500);
             return response.json();
+          } else if (response.status === 400) {
+            alert("Either the slot is already booked or not available");
           } else {
             throw new Error("Something went wrong");
           }
@@ -187,6 +212,7 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
                 value={slotsAvailable}
                 onChange={handleSlotChange}
               >
+                <MenuItem>None</MenuItem>
                 {slots.map((time, key) => {
                   return (
                     <MenuItem key={key} value={time}>

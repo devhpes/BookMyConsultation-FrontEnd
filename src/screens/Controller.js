@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 const Controller = () => {
-  const baseUrl = "/api/v1/";
+  const baseUrl = "http://localhost:8080/";
   const {authIsReady} = useAuthContext()
   return (
     <Router>
