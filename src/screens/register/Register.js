@@ -94,7 +94,7 @@ const Register = (props) => {
           emailId: email,
         }),
       };
-      fetch("http://localhost:8081/users/register", requestOptions)
+      fetch("http://localhost:8080/users/register", requestOptions)
         .then((response) => {
           if (response.ok) {
             setRegistrationSuccess(true);

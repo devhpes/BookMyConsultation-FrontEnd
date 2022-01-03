@@ -38,11 +38,11 @@ const BookAppointment = ({ doctorDetails, handleClose }) => {
 
   let doctorName = doctorDetails.firstName + " " + doctorDetails.lastName;
 
-  const usersAPI = "http://localhost:8081/users/";
+  const usersAPI = "http://localhost:8080/users/";
 
-  const appointmentBookingURL = "http://localhost:8081/appointments/";
+  const appointmentBookingURL = "http://localhost:8080/appointments/";
 
-  const appointmentSlots = `http://localhost:8081/doctors/${doctorDetails.id}/timeSlots?date=${selectedDate}`;
+  const appointmentSlots = `http://localhost:8080/doctors/${doctorDetails.id}/timeSlots?date=${selectedDate}`;
 
   const handleSlotChange = (e) => {
     if (isSlotEmpty) {

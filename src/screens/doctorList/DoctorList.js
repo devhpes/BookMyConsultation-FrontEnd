@@ -72,8 +72,8 @@ const DoctorList = (props) => {
   const [bookAppointmentModalOpen, setBookAppointmentModalOpen] =
     React.useState(false);
 
-  const doctorSpecialityURL = "http://localhost:8081/doctors/speciality";
-  const doctorListURL = "http://localhost:8081/doctors?speciality";
+  const doctorSpecialityURL = "http://localhost:8080/doctors/speciality";
+  const doctorListURL = "http://localhost:8080/doctors?speciality";
 
   const handleClose = () => {
     setdoctorDetailsModalOpen(false);

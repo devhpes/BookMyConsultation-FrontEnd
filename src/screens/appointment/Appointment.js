@@ -48,7 +48,7 @@ const Appointment = (props) => {
     setOpen(false);
   };
 
-  const getUserAppointmentAPI = `http://localhost:8081/users/${emailId}/appointments`;
+  const getUserAppointmentAPI = `http://localhost:8080/users/${emailId}/appointments`;
 
   const getUserAppointment = (e) => {
     if (e) e.preventDefault();

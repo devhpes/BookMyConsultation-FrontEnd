@@ -23,7 +23,7 @@ const Login = (props, baseUrl) => {
 
   const { dispatch } = useAuthContext();
 
-  const loginURL = "http://localhost:8081/auth/login";
+  const loginURL = "http://localhost:8080/auth/login";
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);

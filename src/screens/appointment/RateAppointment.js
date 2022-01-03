@@ -15,7 +15,7 @@ const RateAppointment = ({ appointmentDetails, handleClose }) => {
   const [ratingSuccess, setRatingSuccess] = React.useState(false);
   const { userToken } = useAuthContext();
 
-  const ratingURL = "http://localhost:8081/ratings";
+  const ratingURL = "http://localhost:8080/ratings";
 
   const handleRating = (e) => {
     if (e) e.preventDefault();

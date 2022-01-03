@@ -1,5 +1,5 @@
 export const useLogout = () => {
-  const logoutURL = "http://localhost:8081/auth/logout";
+  const logoutURL = "http://localhost:8080/auth/logout";
   const token = sessionStorage.getItem("access-token");
 
   const logout = () => {
